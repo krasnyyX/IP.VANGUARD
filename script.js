@@ -1,37 +1,39 @@
 async function buscarIP() {
-    let ip = document.getElementById('ipInput').value || '';
-    let url = ip ? `http://ip-api.com/json/${ip}?fields=status,message,query,country,regionName,city,isp,org,as,lat,lon,proxy` 
-                 : `http://ip-api.com/json/?fields=status,message,query,country,regionName,city,isp,org,as,lat,lon,proxy`;
+    let ip = document.getElementById('ipInput').value.trim();
+    let url = ip ? `https://ipinfo.io/${ip}/json` : `https://ipinfo.io/json`;
 
     try {
         const response = await fetch(url);
-        const data = await response.json();
+        if (!response.ok) {
+            throw new Error("Erro ao buscar informações.");
+        }
 
-        if (data.status !== "success") {
-            throw new Error(data.message || "Erro ao buscar informações.");
+        const data = await response.json();
+        if (data.bogon) {
+            throw new Error("IP inválido ou reservado.");
         }
 
         exibirResultado(data);
     } catch (error) {
-        document.getElementById('resultado').innerHTML = '<p style="color: red;">Erro ao buscar informações.</p>';
+        document.getElementById('resultado').innerHTML = `<p style="color: red;">${error.message}</p>`;
     }
 }
 
 function exibirResultado(data) {
-    const googleMapsUrl = `https://www.google.com/maps?q=${data.lat},${data.lon}`;
+    let [lat, lon] = data.loc ? data.loc.split(",") : ["Não disponível", "Não disponível"];
+    const googleMapsUrl = `https://www.google.com/maps?q=${lat},${lon}`;
 
     const resultado = `
-        <p><strong>IP:</strong> ${data.query}</p>
-        <p><strong>Provedor:</strong> ${data.isp}</p>
-        <p><strong>Organização:</strong> ${data.org}</p>
-        <p><strong>País:</strong> ${data.country}</p>
-        <p><strong>Estado:</strong> ${data.regionName}</p>
-        <p><strong>Cidade:</strong> ${data.city}</p>
-        <p><strong>ASN:</strong> ${data.as}</p>
-        <p><strong>Latitude:</strong> ${data.lat}</p>
-        <p><strong>Longitude:</strong> ${data.lon}</p>
-        <p><strong>VPN/Proxy:</strong> ${data.proxy ? "Sim" : "Não"}</p>
-        <p><a href="${googleMapsUrl}" target="_blank">📍 Ver localização no Google Maps</a></p>
+        <div class="resultado-box">
+            <h3>🔍 Informações do IP</h3>
+            <p><strong>📌 IP:</strong> ${data.ip}</p>
+            <p><strong>🌍 País:</strong> ${data.country || "Não disponível"}</p>
+            <p><strong>🏙️ Estado:</strong> ${data.region || "Não disponível"}</p>
+            <p><strong>🏡 Cidade:</strong> ${data.city || "Não disponível"}</p>
+            <p><strong>🛰️ Provedor:</strong> ${data.org || "Não disponível"}</p>
+            <p><strong>📍 Localização:</strong> ${lat}, ${lon}</p>
+            <p><a href="${googleMapsUrl}" target="_blank">🗺️ Ver no Google Maps</a></p>
+        </div>
     `;
 
     document.getElementById('resultado').innerHTML = resultado;
