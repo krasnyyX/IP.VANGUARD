@@ -1,24 +1,26 @@
 async function buscarMeuIP() {
     try {
-        // IP da Internet (IPv4 real da conexão)
-        const responseInternet = await fetch("https://api4.ipify.org?format=json");
-        const dataInternet = await responseInternet.json();
-        const meuIPInternet = dataInternet.ip;
+        const responseIPv4 = await fetch("https://api4.my-ip.io/ip.json");
+        const responseIPv6 = await fetch("https://api64.ipify.org?format=json");
 
-        // IP do Dispositivo (Local)
-        const responseDispositivo = await fetch("https://api64.ipify.org?format=json");
-        const dataDispositivo = await responseDispositivo.json();
-        const meuIPDispositivo = dataDispositivo.ip;
+        if (!responseIPv4.ok || !responseIPv6.ok) {
+            throw new Error("Erro ao buscar informações do IP.");
+        }
 
-        document.getElementById('resultado-meu-ip').innerHTML = `
-            <div class="resultado-box pequeno">
-                <h3>📡 Meu IP</h3>
-                <p><strong>🌎 Internet:</strong> <span class="ip-pequeno">${meuIPInternet}</span></p>
-                <p><strong>📶 Dispositivo:</strong> <span class="ip-pequeno">${meuIPDispositivo}</span></p>
+        const dataIPv4 = await responseIPv4.json();
+        const dataIPv6 = await responseIPv6.json();
+
+        let resultado = `
+            <div class="resultado-box">
+                <h3>🔍 Meu IP</h3>
+                <p><strong>🌐 IPv4:</strong> ${dataIPv4.ip}</p>
+                <p><strong>🔗 IPv6:</strong> ${dataIPv6.ip || "Não disponível"}</p>
             </div>
         `;
+
+        document.getElementById('meuIPResultado').innerHTML = resultado;
     } catch (error) {
-        document.getElementById('resultado-meu-ip').innerHTML = `<p style="color: red;">Erro ao buscar IP.</p>`;
+        document.getElementById('meuIPResultado').innerHTML = `<p style="color: red;">${error.message}</p>`;
     }
 }
 
@@ -43,38 +45,6 @@ async function buscarIP() {
     }
 }
 
-async function buscarIPInternet() {
-    try {
-        const response = await fetch("https://api4.ipify.org?format=json");
-        const data = await response.json();
-
-        document.getElementById('resultado-internet').innerHTML = `
-            <div class="resultado-box pequeno">
-                <h3>🌎 IP da Internet</h3>
-                <p><strong>📡 Público:</strong> <span class="ip-pequeno">${data.ip}</span></p>
-            </div>
-        `;
-    } catch (error) {
-        document.getElementById('resultado-internet').innerHTML = `<p style="color: red;">Erro ao buscar IP.</p>`;
-    }
-}
-
-async function buscarIPDispositivo() {
-    try {
-        const response = await fetch("https://api64.ipify.org?format=json");
-        const data = await response.json();
-
-        document.getElementById('resultado-dispositivo').innerHTML = `
-            <div class="resultado-box pequeno">
-                <h3>📶 IP do Dispositivo</h3>
-                <p><strong>🖥️ Local:</strong> <span class="ip-pequeno">${data.ip}</span></p>
-            </div>
-        `;
-    } catch (error) {
-        document.getElementById('resultado-dispositivo').innerHTML = `<p style="color: red;">Erro ao buscar IP.</p>`;
-    }
-}
-
 function exibirResultado(data) {
     let [lat, lon] = data.loc ? data.loc.split(",") : ["Não disponível", "Não disponível"];
     const googleMapsUrl = `https://www.google.com/maps?q=${lat},${lon}`;
@@ -93,4 +63,25 @@ function exibirResultado(data) {
     `;
 
     document.getElementById('resultado').innerHTML = resultado;
+}
+
+// Consulta o IP do dispositivo (local)
+async function buscarIPDispositivo() {
+    try {
+        const connection = await navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+        let tipo = connection ? connection.type : "Não disponível";
+        let velocidade = connection ? connection.downlink + " Mbps" : "Não disponível";
+
+        let resultado = `
+            <div class="resultado-box">
+                <h3>📱 IP do Dispositivo</h3>
+                <p><strong>📶 Tipo de Conexão:</strong> ${tipo}</p>
+                <p><strong>⚡ Velocidade Estimada:</strong> ${velocidade}</p>
+            </div>
+        `;
+
+        document.getElementById('dispositivoResultado').innerHTML = resultado;
+    } catch (error) {
+        document.getElementById('dispositivoResultado').innerHTML = `<p style="color: red;">${error.message}</p>`;
+    }
 }
