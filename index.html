@@ -3,39 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Consulta de IP</title>
+    <title>Consulta</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+    <!-- Cabeçalho -->
     <header>
-        <h2 class="logo">IP VNG</h2>
+        <h1>Consulta</h1>
         <nav>
             <a href="#">Home</a>
-            <a href="https://t.me/azrakothx" target="_blank">Contato</a>
+            <a href="#">Contato</a>
         </nav>
     </header>
 
+    <!-- Conteúdo principal -->
     <div class="container">
-        <h1>Consulta de IP</h1>
-
-        <!-- Meu IP -->
-        <div class="input-box">
-            <button onclick="meuIP()">Ver Meu IP</button>
-            <div id="meuIpResultado" class="resultado"></div>
-        </div>
-
+        
         <!-- Consulta de IP -->
-        <div class="input-box">
-            <input type="text" id="ipInput" placeholder="Digite um IP">
-            <button onclick="buscarIP()">Buscar</button>
-            <div id="resultado" class="resultado"></div>
+        <div class="box">
+            <h2>Consulta de IP</h2>
+            <input type="text" id="ipInput" placeholder="Digite um IP (opcional)">
+            <button onclick="consultarIP()">Consultar</button>
+            <div id="resultadoIP" class="resultado"></div>
         </div>
 
-        <!-- Consulta IP do Dispositivo -->
-        <div class="input-box">
-            <button onclick="consultaDispositivo()">Ver IP do Dispositivo</button>
-            <div id="dispositivoResultado" class="resultado"></div>
+        <!-- Consulta de CPF -->
+        <div class="box">
+            <h2>Consulta de CPF</h2>
+            <input type="text" id="cpfInput" placeholder="Digite o CPF">
+            <button onclick="consultarCPF()">Consultar</button>
+            <div id="resultadoCPF" class="resultado"></div>
         </div>
+
     </div>
 
     <script src="script.js"></script>
