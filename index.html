@@ -14,20 +14,14 @@
             <a href="#">Contato</a>
         </nav>
     </header>
-
-    <main>
-        <section class="consulta-container">
+    <div class="container">
+        <div class="box">
             <h2>Consulta de IP</h2>
-            <div class="input-container">
-                <input type="text" id="ip-input" placeholder="Digite um IP ou deixe em branco">
-                <button id="btn-buscar">Buscar</button>
-            </div>
-            <div id="resultado" class="resultado-box">
-                <!-- Resultado da consulta será exibido aqui -->
-            </div>
-        </section>
-    </main>
-
+            <input type="text" id="ipInput" placeholder="Digite um IP ou deixe em branco">
+            <button onclick="consultarIP()">Buscar</button>
+            <div id="resultado"></div>
+        </div>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
