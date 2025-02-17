@@ -16,20 +16,28 @@
     </header>
 
     <div class="container">
-        <h2>Consulta de IP</h2>
-
-        <!-- Consulta de um IP digitado -->
-        <div class="input-box">
-            <input type="text" id="ipInput" placeholder="Digite um IP para consultar">
-            <button onclick="buscarIP()">Buscar</button>
+        <!-- MEU IP (IP da Internet - IPv4) -->
+        <div class="section">
+            <h2>Meu IP</h2>
+            <button onclick="buscarMeuIP()">Ver Meu IP</button>
+            <div id="meu-ip"></div>
         </div>
-        <div id="resultado"></div>
 
-        <!-- Consulta do IP da Internet -->
-        <div class="internet-box">
-            <h2>Seu IP da Internet</h2>
-            <button onclick="buscarIPInternet()">Consultar Meu IP</button>
-            <div id="resultado-internet"></div>
+        <!-- CONSULTA DE UM IP DIGITADO -->
+        <div class="section">
+            <h2>Consulta de IP</h2>
+            <div class="input-box">
+                <input type="text" id="ipInput" placeholder="Digite um IP para consultar">
+                <button onclick="buscarIP()">Buscar</button>
+            </div>
+            <div id="resultado"></div>
+        </div>
+
+        <!-- CONSULTA DO IP DO DISPOSITIVO (Wi-Fi/Rede Local) -->
+        <div class="section">
+            <h2>IP do Dispositivo</h2>
+            <button onclick="buscarIPDispositivo()">Ver IP do Dispositivo</button>
+            <div id="resultado-dispositivo"></div>
         </div>
     </div>
 
