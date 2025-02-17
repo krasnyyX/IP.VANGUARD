@@ -1,4 +1,15 @@
-// Consulta de um IP digitado pelo usuário
+// 1️⃣ BUSCAR MEU IP (IP PÚBLICO - INTERNET)
+async function buscarMeuIP() {
+    try {
+        const response = await fetch("https://api.ipify.org?format=json");
+        const data = await response.json();
+        document.getElementById("meu-ip").innerHTML = `<p><strong>📌 Meu IP:</strong> ${data.ip}</p>`;
+    } catch (error) {
+        document.getElementById("meu-ip").innerHTML = `<p style="color: red;">Erro ao buscar IP.</p>`;
+    }
+}
+
+// 2️⃣ CONSULTA DE UM IP DIGITADO
 async function buscarIP() {
     let ip = document.getElementById('ipInput').value.trim();
     if (!ip) {
@@ -15,37 +26,37 @@ async function buscarIP() {
         }
 
         const data = await response.json();
-        if (data.bogon) {
-            throw new Error("IP inválido ou reservado.");
-        }
-
         exibirResultado(data, "resultado");
     } catch (error) {
         document.getElementById('resultado').innerHTML = `<p style="color: red;">${error.message}</p>`;
     }
 }
 
-// Consulta do IP da internet do usuário (forçando IPv4)
-async function buscarIPInternet() {
-    try {
-        const ipResponse = await fetch("https://api.ipify.org?format=json");
-        const ipData = await ipResponse.json();
-        const ip = ipData.ip;
+// 3️⃣ BUSCAR O IP DO DISPOSITIVO (Wi-Fi / Rede Local)
+function buscarIPDispositivo() {
+    let ipLocal = "Não disponível";
 
-        let url = `https://ipinfo.io/${ip}/json`;
-        const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error("Erro ao buscar informações.");
+    const pc = new RTCPeerConnection({ iceServers: [] });
+    pc.createDataChannel("");
+    pc.createOffer()
+        .then(offer => pc.setLocalDescription(offer))
+        .catch(() => {});
+
+    pc.onicecandidate = event => {
+        if (event && event.candidate && event.candidate.candidate) {
+            let ipMatch = event.candidate.candidate.match(
+                /([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3})/
+            );
+            if (ipMatch) {
+                ipLocal = ipMatch[1];
+                document.getElementById("resultado-dispositivo").innerHTML =
+                    `<p><strong>📡 IP do Dispositivo:</strong> ${ipLocal}</p>`;
+            }
         }
-
-        const data = await response.json();
-        exibirResultado(data, "resultado-internet");
-    } catch (error) {
-        document.getElementById('resultado-internet').innerHTML = `<p style="color: red;">Erro ao buscar o IP da internet.</p>`;
-    }
+    };
 }
 
-// Exibe os resultados formatados
+// Função para exibir os resultados
 function exibirResultado(data, resultadoId) {
     let [lat, lon] = data.loc ? data.loc.split(",") : ["Não disponível", "Não disponível"];
     const googleMapsUrl = `https://www.google.com/maps?q=${lat},${lon}`;
