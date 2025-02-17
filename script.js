@@ -1,35 +1,30 @@
-// Função para buscar o IP da Internet e o IP do Dispositivo
 async function buscarMeuIP() {
     try {
-        // Obtendo o IP da Internet (IP Público)
-        let internetIPResponse = await fetch('https://api64.ipify.org?format=json');
-        let internetIPData = await internetIPResponse.json();
-        
-        // Obtendo o IP do Dispositivo (IP Local)
-        let localIP = await obterIPLocal();
+        // API para pegar o IP da internet (Forçando IPv4)
+        const responseInternet = await fetch("https://api4.ipify.org?format=json");
+        const dataInternet = await responseInternet.json();
+        const meuIPInternet = dataInternet.ip;
 
-        // Exibindo os resultados
+        // API para pegar o IP do dispositivo (rede local)
+        const responseDispositivo = await fetch("https://api.ipify.org?format=json");
+        const dataDispositivo = await responseDispositivo.json();
+        const meuIPDispositivo = dataDispositivo.ip;
+
         document.getElementById('resultado-meu-ip').innerHTML = `
             <div class="resultado-box">
-                <h3>🔍 Meu IP</h3>
-                <p><strong>🌐 IP da Internet:</strong> ${internetIPData.ip}</p>
-                <p><strong>📡 IP do Dispositivo:</strong> ${localIP}</p>
+                <h3>📡 Meu IP</h3>
+                <p><strong>🌎 IP da Internet (IPv4):</strong> ${meuIPInternet}</p>
+                <p><strong>📶 IP do Dispositivo (Local):</strong> ${meuIPDispositivo}</p>
             </div>
         `;
     } catch (error) {
-        document.getElementById('resultado-meu-ip').innerHTML = `<p style="color: red;">Erro ao buscar o IP.</p>`;
+        document.getElementById('resultado-meu-ip').innerHTML = `<p style="color: red;">Erro ao buscar IP.</p>`;
     }
 }
 
-// Função para buscar informações de um IP digitado
 async function buscarIP() {
     let ip = document.getElementById('ipInput').value.trim();
-    if (!ip) {
-        document.getElementById('resultado-consulta-ip').innerHTML = `<p style="color: red;">Digite um IP para buscar.</p>`;
-        return;
-    }
-
-    let url = `https://ipinfo.io/${ip}/json`;
+    let url = ip ? `https://ipinfo.io/${ip}/json` : `https://ipinfo.io/json`;
 
     try {
         const response = await fetch(url);
@@ -42,32 +37,13 @@ async function buscarIP() {
             throw new Error("IP inválido ou reservado.");
         }
 
-        exibirResultado(data, 'resultado-consulta-ip');
+        exibirResultado(data);
     } catch (error) {
-        document.getElementById('resultado-consulta-ip').innerHTML = `<p style="color: red;">${error.message}</p>`;
+        document.getElementById('resultado').innerHTML = `<p style="color: red;">${error.message}</p>`;
     }
 }
 
-// Função para obter o IP local (do dispositivo)
-async function obterIPLocal() {
-    return new Promise((resolve) => {
-        let pc = new RTCPeerConnection();
-        pc.createDataChannel("");
-        pc.createOffer().then((offer) => pc.setLocalDescription(offer));
-
-        pc.onicecandidate = (event) => {
-            if (event.candidate) {
-                let ipMatch = event.candidate.candidate.match(/\d+\.\d+\.\d+\.\d+/);
-                if (ipMatch) {
-                    resolve(ipMatch[0]);
-                }
-            }
-        };
-    });
-}
-
-// Função para exibir os resultados formatados
-function exibirResultado(data, resultadoId) {
+function exibirResultado(data) {
     let [lat, lon] = data.loc ? data.loc.split(",") : ["Não disponível", "Não disponível"];
     const googleMapsUrl = `https://www.google.com/maps?q=${lat},${lon}`;
 
@@ -84,5 +60,5 @@ function exibirResultado(data, resultadoId) {
         </div>
     `;
 
-    document.getElementById(resultadoId).innerHTML = resultado;
+    document.getElementById('resultado').innerHTML = resultado;
 }
