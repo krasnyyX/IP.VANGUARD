@@ -11,9 +11,10 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
     background: url('https://i.ibb.co/DgH6nJrb/background.jpg') no-repeat center center/cover;
     color: white;
+    padding-top: 70px;
 }
 
 header {
@@ -22,24 +23,20 @@ header {
     left: 0;
     width: 100%;
     padding: 15px 50px;
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.7);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    backdrop-filter: blur(8px);
 }
 
 .logo {
     font-size: 1.5em;
-    font-weight: bold;
-    color: #00ffcc;
 }
 
 .navigation a {
     margin-left: 20px;
     color: white;
     text-decoration: none;
-    font-weight: 500;
     transition: 0.3s;
 }
 
@@ -48,58 +45,59 @@ header {
 }
 
 .container {
-    margin-top: 120px;
-    text-align: center;
-    background: rgba(0, 0, 0, 0.7);
+    width: 90%;
+    max-width: 450px;
+    background: rgba(255, 255, 255, 0.2);
     padding: 20px;
     border-radius: 10px;
     backdrop-filter: blur(10px);
-    width: 420px;
-    box-shadow: 0px 0px 10px rgba(0, 255, 204, 0.5);
+    text-align: center;
+}
+
+h2 {
+    font-size: 1.4em;
+    margin-bottom: 10px;
+    color: #00ffcc;
 }
 
 .input-box {
-    margin-top: 15px;
-    display: flex;
-    justify-content: center;
-    gap: 10px;
+    margin: 10px 0;
 }
 
 input {
-    padding: 10px;
-    width: 65%;
+    padding: 8px;
+    width: 80%;
     border: none;
-    border-radius: 5px;
     outline: none;
     background: white;
     color: black;
-    font-size: 16px;
+    border-radius: 5px;
 }
 
 button {
-    padding: 10px 18px;
+    padding: 10px;
     background: #00ffcc;
     border: none;
-    border-radius: 5px;
-    cursor: pointer;
+    color: black;
     font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
     transition: 0.3s;
+    margin-top: 5px;
 }
 
 button:hover {
-    background: #008f7a;
+    background: #009977;
     color: white;
 }
 
 .resultado-box {
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.7);
     padding: 15px;
     border-radius: 10px;
     text-align: left;
     width: 100%;
-    max-width: 420px;
-    margin-top: 15px;
-    box-shadow: 0px 0px 8px rgba(0, 255, 204, 0.3);
+    margin-top: 10px;
 }
 
 .resultado-box h3 {
@@ -116,36 +114,4 @@ button:hover {
 .resultado-box a {
     color: #00ffcc;
     text-decoration: none;
-}
-
-.pequeno {
-    width: 280px;
-    text-align: center;
-}
-
-.ip-pequeno {
-    font-size: 14px;
-    word-wrap: break-word;
-}
-
-.botao-ip {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 20px;
-}
-
-.botao-ip button {
-    background: transparent;
-    border: 2px solid #00ffcc;
-    color: #00ffcc;
-    padding: 8px 15px;
-    border-radius: 5px;
-    font-size: 14px;
-    transition: 0.3s;
-}
-
-.botao-ip button:hover {
-    background: #00ffcc;
-    color: black;
 }
