@@ -27,7 +27,12 @@ document.getElementById('lookupBtn').addEventListener('click', function() {
 function fetchLocationInfo(ip) {
     // API ip-api para obter informações sobre o IP (sem chave de API)
     fetch(`http://ip-api.com/json/${ip}`)
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Falha na requisição');
+            }
+            return response.json();
+        })
         .then(data => {
             if (data.error) {
                 document.getElementById('lookupResult').innerHTML = "IP não encontrado ou inválido.";
