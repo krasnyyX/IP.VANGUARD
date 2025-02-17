@@ -1,59 +1,68 @@
-// Função para obter o IP público (IP da internet)
-async function verMeuIP() {
+async function meuIP() {
     try {
-        let response = await fetch("https://api64.ipify.org?format=json");
-        let data = await response.json();
-        document.getElementById("meu-ip").innerText = `Meu IP (IPv4): ${data.ip}`;
+        const response = await fetch("https://api64.ipify.org?format=json");
+        const data = await response.json();
+        
+        const responseInfo = await fetch(`https://ipinfo.io/${data.ip}/json`);
+        const info = await responseInfo.json();
+        
+        exibirResultado(info, "meuIpResultado");
     } catch (error) {
-        document.getElementById("meu-ip").innerText = "Erro ao obter IP.";
+        document.getElementById("meuIpResultado").innerHTML = `<p style="color: red;">Erro ao obter IP.</p>`;
     }
 }
 
-// Função para consultar um IP específico
-async function consultarIP() {
-    let ip = document.getElementById("input-ip").value.trim();
-    
-    if (ip === "") {
-        verMeuIP(); // Se o campo estiver vazio, retorna o próprio IP
+async function buscarIP() {
+    let ip = document.getElementById("ipInput").value.trim();
+    if (!ip) {
+        document.getElementById("resultado").innerHTML = `<p style="color: red;">Digite um IP válido!</p>`;
         return;
     }
 
     try {
-        let response = await fetch(`https://ip-api.com/json/${ip}`);
-        let data = await response.json();
-
-        if (data.status === "fail") {
-            document.getElementById("resultado-ip").innerText = "IP inválido ou reservado.";
-        } else {
-            document.getElementById("resultado-ip").innerText = `
-                IP: ${data.query}
-                País: ${data.country}
-                Cidade: ${data.city}
-                Provedor: ${data.isp}
-            `;
+        const response = await fetch(`https://ipinfo.io/${ip}/json`);
+        const data = await response.json();
+        
+        if (data.bogon) {
+            throw new Error("IP inválido ou reservado.");
         }
+
+        exibirResultado(data, "resultado");
     } catch (error) {
-        document.getElementById("resultado-ip").innerText = "Erro ao consultar IP.";
+        document.getElementById("resultado").innerHTML = `<p style="color: red;">${error.message}</p>`;
     }
 }
 
-// Função para obter o IP local do dispositivo
-async function verIPDispositivo() {
+async function consultaDispositivo() {
     try {
-        let rtc = new RTCPeerConnection({ iceServers: [] });
-        rtc.createDataChannel("");
-        rtc.createOffer().then(offer => rtc.setLocalDescription(offer));
+        const response = await fetch("https://api.ipify.org?format=json");
+        const data = await response.json();
 
-        rtc.onicecandidate = event => {
-            if (event && event.candidate && event.candidate.candidate) {
-                let ipMatch = event.candidate.candidate.match(/\b\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\b/);
-                if (ipMatch) {
-                    document.getElementById("ip-dispositivo").innerText = `IP do Dispositivo: ${ipMatch[0]}`;
-                }
-                rtc.close();
-            }
-        };
+        const responseInfo = await fetch(`https://ipinfo.io/${data.ip}/json`);
+        const info = await responseInfo.json();
+
+        exibirResultado(info, "dispositivoResultado");
     } catch (error) {
-        document.getElementById("ip-dispositivo").innerText = "Não foi possível obter o IP do dispositivo.";
+        document.getElementById("dispositivoResultado").innerHTML = `<p style="color: red;">Erro ao obter IP do dispositivo.</p>`;
     }
+}
+
+function exibirResultado(data, elementoID) {
+    let [lat, lon] = data.loc ? data.loc.split(",") : ["Não disponível", "Não disponível"];
+    const googleMapsUrl = `https://www.google.com/maps?q=${lat},${lon}`;
+
+    const resultado = `
+        <div class="resultado-box">
+            <h3>🔍 Informações do IP</h3>
+            <p><strong>📌 IP:</strong> ${data.ip}</p>
+            <p><strong>🌍 País:</strong> ${data.country || "Não disponível"}</p>
+            <p><strong>🏙️ Estado:</strong> ${data.region || "Não disponível"}</p>
+            <p><strong>🏡 Cidade:</strong> ${data.city || "Não disponível"}</p>
+            <p><strong>🛰️ Provedor:</strong> ${data.org || "Não disponível"}</p>
+            <p><strong>📍 Localização:</strong> ${lat}, ${lon}</p>
+            <p><a href="${googleMapsUrl}" target="_blank">🗺️ Ver no Google Maps</a></p>
+        </div>
+    `;
+
+    document.getElementById(elementoID).innerHTML = resultado;
 }
