@@ -18,10 +18,16 @@
     <div class="container">
         <h2>Consulta de IP</h2>
         <div class="input-box">
-            <input type="text" id="ipInput" placeholder="Digite um IP ou deixe em branco para seu IP">
-            <button onclick="buscarIP()">Buscar</button>
+            <input type="text" id="ipInput" placeholder="Digite um IP para consultar">
+            <button onclick="buscarIP()">Buscar IP Digitado</button>
         </div>
         <div id="resultado"></div>
+    </div>
+
+    <div class="container">
+        <h2>Consulta de IP da Internet</h2>
+        <button onclick="buscarIP('internet')">Buscar Meu IP da Internet</button>
+        <div id="resultadoInternet"></div>
     </div>
 
     <script src="script.js"></script>
