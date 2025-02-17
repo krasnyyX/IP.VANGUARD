@@ -4,36 +4,33 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Consulta de IP</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <header>
-        <div class="top-left">
-            <select id="language-select">
-                <option value="pt">Português</option>
-                <option value="en">English</option>
-                <option value="ru">Русский</option>
-            </select>
-        </div>
-        <div class="top-right">
-            <a href="https://t.me/azrakothx" target="_blank">Contato</a>
-        </div>
-    </header>
+    <!-- Menu Superior -->
+    <div class="header">
+        <a href="https://t.me/azrakothx" target="_blank">Contato</a>
+        <select id="languageSelector">
+            <option value="pt">Português</option>
+            <option value="en">English</option>
+            <option value="ru">Русский</option>
+        </select>
+    </div>
 
-    <main>
-        <h1>Consulta de IP</h1>
-        <div class="ip-section">
-            <button id="get-my-ip">Meu IP</button>
-            <p id="my-ip-result"></p>
-        </div>
-        <div class="ip-section">
-            <input type="text" id="ip-input" placeholder="Digite um IP">
-            <button id="search-ip">Consultar IP</button>
-            <p id="ip-result"></p>
-        </div>
-    </main>
+    <div class="container">
+        <h1 id="title">Consulta de IP</h1>
 
+        <!-- Botão para mostrar meu IP -->
+        <button id="myIPBtn">Meu IP</button>
+        <div id="myIPResult"></div>
+
+        <!-- Consulta de IP -->
+        <input type="text" id="ipInput" placeholder="Digite um IP">
+        <button id="lookupBtn">Consultar IP</button>
+        <div id="lookupResult"></div>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
