@@ -1,19 +1,18 @@
 async function buscarMeuIP() {
     try {
-        let response = await fetch("https://api64.ipify.org?format=json");
-        if (!response.ok) throw new Error("Erro ao buscar IPv4");
+        let ipv4Response = await fetch("https://api.ipify.org?format=json");
+        let ipv6Response = await fetch("https://api64.ipify.org?format=json");
 
-        let data = await response.json();
-        let ipv4 = data.ip;
+        if (!ipv4Response.ok || !ipv6Response.ok) throw new Error("Erro ao buscar IP.");
 
-        response = await fetch("https://api64.ipify.org?format=json");
-        let ipv6 = response.ok ? (await response.json()).ip : "Não disponível";
+        let ipv4 = (await ipv4Response.json()).ip;
+        let ipv6 = (await ipv6Response.json()).ip;
 
         document.getElementById("meuIPResultado").innerHTML = `
             <div class="resultado-box">
                 <h3>🔍 Meu IP</h3>
-                <p><strong>🌐 IPv4:</strong> ${ipv4}</p>
-                <p><strong>🆔 IPv6:</strong> ${ipv6}</p>
+                <p><strong>🌐 IPv4:</strong> ${ipv4 || "Não disponível"}</p>
+                <p><strong>🆔 IPv6:</strong> ${ipv6 || "Não disponível"}</p>
             </div>
         `;
     } catch (error) {
@@ -30,7 +29,10 @@ async function buscarIP() {
         if (!response.ok) throw new Error("Erro ao buscar informações.");
 
         const data = await response.json();
-        if (data.bogon) throw new Error("IP inválido ou reservado.");
+        
+        if (data.bogon || data.ip.startsWith("192.168") || data.ip.startsWith("10.") || data.ip.startsWith("172.16")) {
+            throw new Error("Esse IP é de uma rede privada e não pode ser consultado.");
+        }
 
         exibirResultado(data);
     } catch (error) {
@@ -56,22 +58,4 @@ function exibirResultado(data) {
     `;
 
     document.getElementById('resultado').innerHTML = resultado;
-}
-
-async function buscarIPDispositivo() {
-    try {
-        let connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-        let connectionType = connection ? connection.effectiveType.toUpperCase() : "Desconhecido";
-        let speed = connection ? connection.downlink + " Mbps" : "Desconhecida";
-
-        document.getElementById("dispositivoResultado").innerHTML = `
-            <div class="resultado-box">
-                <h3>📲 IP do Dispositivo</h3>
-                <p><strong>🔌 Tipo de conexão:</strong> ${connectionType}</p>
-                <p><strong>⚡ Velocidade:</strong> ${speed}</p>
-            </div>
-        `;
-    } catch (error) {
-        document.getElementById("dispositivoResultado").innerHTML = `<p style="color: red;">Erro ao buscar informações.</p>`;
-    }
 }
