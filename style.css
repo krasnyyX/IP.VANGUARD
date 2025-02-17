@@ -9,80 +9,86 @@ body {
     background: url('https://i.ibb.co/DDMssJRH/f07e4dbbb0fd5c3a369c80367fd1a702.jpg') no-repeat center center fixed;
     background-size: cover;
     color: #fff;
-}
-
-header {
-    background: rgba(0, 0, 0, 0.8);
-    padding: 15px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo {
-    font-size: 24px;
-    font-weight: bold;
-    color: red;
-}
-
-.navigation a {
-    color: white;
-    text-decoration: none;
-    margin: 0 15px;
-    font-size: 18px;
-}
-
-.navigation a:hover {
-    color: red;
-}
-
-.container {
-    max-width: 500px;
-    margin: 50px auto;
-    padding: 20px;
-    background: rgba(0, 0, 0, 0.8);
-    border-radius: 10px;
     text-align: center;
 }
 
-h2 {
-    color: red;
-    margin-bottom: 20px;
+header {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 15px;
+    font-size: 20px;
+    position: relative;
 }
 
-button {
+.idiomas {
+    position: absolute;
+    right: 20px;
+    top: 15px;
+}
+
+.idiomas button {
+    background: red;
+    border: none;
+    padding: 5px 10px;
+    margin-left: 5px;
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
+}
+
+.consulta {
+    margin: 50px auto;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.8);
+    width: 90%;
+    max-width: 400px;
+    border-radius: 10px;
+}
+
+.consulta input, .consulta button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.consulta input {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    text-align: center;
+}
+
+.consulta button {
     background: red;
     color: white;
-    padding: 10px 15px;
-    border: none;
+    font-weight: bold;
     cursor: pointer;
-    font-size: 16px;
-    border-radius: 5px;
-    transition: 0.3s;
 }
 
-button:hover {
+.consulta button:hover {
     background: darkred;
 }
 
-.input-box {
-    display: flex;
-    gap: 10px;
+#resultado {
     margin-top: 20px;
-}
-
-input {
-    flex: 1;
     padding: 10px;
-    border: 1px solid red;
+    background: rgba(255, 255, 255, 0.1);
     border-radius: 5px;
-    font-size: 16px;
 }
 
-.resultado-box {
-    margin-top: 20px;
-    padding: 15px;
-    background: rgba(255, 0, 0, 0.2);
-    border: 1px solid red;
-    border-radius: 5px;
+footer {
+    margin-top: 30px;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 10px;
+}
+
+footer a {
+    color: red;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+footer a:hover {
+    text-decoration: underline;
 }
