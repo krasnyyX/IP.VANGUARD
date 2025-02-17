@@ -8,23 +8,26 @@
 </head>
 <body>
 
+    <!-- Menu Superior -->
     <div class="header">
         <a href="https://t.me/azrakothx" target="_blank">Contato</a>
         <select id="languageSelector">
-            <option value="pt">🇧🇷</option>
-            <option value="en">🇺🇸</option>
-            <option value="ru">🇷🇺</option>
+            <option value="pt">Português</option>
+            <option value="en">English</option>
+            <option value="ru">Русский</option>
         </select>
     </div>
 
     <div class="container">
-        <h1>Consulta de IP</h1>
+        <h1 id="title">Consulta de IP</h1>
 
+        <!-- Botão para mostrar meu IP -->
         <button id="myIPBtn">Meu IP</button>
         <div id="myIPResult"></div>
 
+        <!-- Consulta de IP -->
         <input type="text" id="ipInput" placeholder="Digite um IP">
-        <button id="lookupBtn">Consultar</button>
+        <button id="lookupBtn">Consultar IP</button>
         <div id="lookupResult"></div>
     </div>
 
