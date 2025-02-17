@@ -1,33 +1,33 @@
-<!DOCTYPE html>
+Oi<!DOCTYPE html>
 <html lang="pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Consulta de IP</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
-        <div class="logo">Consulta de IP</div>
-        <nav class="navigation">
-            <a href="#">Início</a>
-            <a href="#">Sobre</a>
-            <a href="#">Contato</a>
-        </nav>
+        <h1>Consulta de IP</h1>
+        <div class="idiomas">
+            <button onclick="mudarIdioma('pt')">Português</button>
+            <button onclick="mudarIdioma('en')">English</button>
+            <button onclick="mudarIdioma('ru')">Русский</button>
+        </div>
     </header>
 
-    <div class="container">
-        <h2>Consultar IP</h2>
-        <button id="meuIpBtn">Ver Meu IP</button>
-        <div id="meuIpResultado" class="resultado-box" style="display: none;"></div>
+    <main>
+        <section class="consulta">
+            <button id="meu-ip-btn">Ver Meu IP</button>
+            <input type="text" id="ip-input" placeholder="Digite um IP">
+            <button id="consulta-ip-btn">Consultar IP</button>
+            <div id="resultado"></div>
+        </section>
+    </main>
 
-        <h2>Consultar IP Manualmente</h2>
-        <div class="input-box">
-            <input type="text" id="ipInput" placeholder="Digite um IP">
-            <button id="consultarIpBtn">Buscar</button>
-        </div>
-        <div id="ipResultado" class="resultado-box" style="display: none;"></div>
-    </div>
+    <footer>
+        <p>Contato: <a href="https://t.me/azrakothx" target="_blank">@azrakothx</a></p>
+    </footer>
 
     <script src="script.js"></script>
 </body>
