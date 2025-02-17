@@ -28,7 +28,7 @@ h1 {
     margin-bottom: 20px;
 }
 
-input, button {
+input, button, select {
     width: 100%;
     padding: 10px;
     margin-top: 10px;
@@ -58,5 +58,30 @@ button:hover {
     margin-top: 20px;
     padding: 10px;
     background: rgba(255, 0, 0, 0.2);
+    border-radius: 5px;
+}
+
+/* Menu superior */
+.header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background: rgba(0, 0, 0, 0.8);
+    position: fixed;
+    width: 100%;
+    top: 0;
+}
+
+.header a {
+    color: #ff0000;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+#languageSelector {
+    background: #222;
+    color: white;
+    padding: 5px;
+    border: 1px solid #ff0000;
     border-radius: 5px;
 }
