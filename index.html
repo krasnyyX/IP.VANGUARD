@@ -1,42 +1,36 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Consulta</title>
+    <title>Consulta de IP</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- Cabeçalho -->
     <header>
-        <h1>Consulta</h1>
+        <h1>Consulta de IP</h1>
         <nav>
             <a href="#">Home</a>
             <a href="#">Contato</a>
         </nav>
     </header>
 
-    <!-- Conteúdo principal -->
-    <div class="container">
-        
-        <!-- Consulta de IP -->
-        <div class="box">
+    <main>
+        <section class="container">
+            <h2>Meu IP</h2>
+            <button id="meuIpBtn">Ver Meu IP</button>
+
+            <h2>IP do Wi-Fi</h2>
+            <button id="ipWifiBtn">Ver IP do Wi-Fi</button>
+
             <h2>Consulta de IP</h2>
-            <input type="text" id="ipInput" placeholder="Digite um IP (opcional)">
-            <button onclick="consultarIP()">Consultar</button>
-            <div id="resultadoIP" class="resultado"></div>
-        </div>
+            <input type="text" id="inputIp" placeholder="Digite um IP (opcional)">
+            <button id="consultaBtn">Consultar</button>
 
-        <!-- Consulta de CPF -->
-        <div class="box">
-            <h2>Consulta de CPF</h2>
-            <input type="text" id="cpfInput" placeholder="Digite o CPF">
-            <button onclick="consultarCPF()">Consultar</button>
-            <div id="resultadoCPF" class="resultado"></div>
-        </div>
-
-    </div>
+            <div id="resultado"></div>
+        </section>
+    </main>
 
     <script src="script.js"></script>
 </body>
