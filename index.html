@@ -1,33 +1,34 @@
+
 <!DOCTYPE html>
 <html lang="pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Consulta de IP</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
+    <div class="container">
         <h1>Consulta de IP</h1>
-        <div class="idiomas">
-            <button onclick="mudarIdioma('pt')">Português</button>
-            <button onclick="mudarIdioma('en')">English</button>
-            <button onclick="mudarIdioma('ru')">Русский</button>
+        
+        <button onclick="getMyIP()">Ver Meu IP</button>
+        <div class="result" id="myIpResult"></div>
+        
+        <input type="text" id="ipInput" placeholder="Digite um IP para consultar">
+        <button onclick="lookupIP()">Consultar IP</button>
+        <div class="result" id="lookupResult"></div>
+
+        <button onclick="getWifiIP()">Consultar IP do Wi-Fi</button>
+        <div class="result" id="wifiIpResult"></div>
+
+        <div class="language-switcher">
+            <button onclick="setLanguage('pt')">Português</button>
+            <button onclick="setLanguage('en')">English</button>
+            <button onclick="setLanguage('ru')">Русский</button>
         </div>
-    </header>
 
-    <main>
-        <section class="consulta">
-            <button id="meu-ip-btn">Ver Meu IP</button>
-            <input type="text" id="ip-input" placeholder="Digite um IP">
-            <button id="consulta-ip-btn">Consultar IP</button>
-            <div id="resultado"></div>
-        </section>
-    </main>
-
-    <footer>
         <p>Contato: <a href="https://t.me/azrakothx" target="_blank">@azrakothx</a></p>
-    </footer>
+    </div>
 
     <script src="script.js"></script>
 </body>
