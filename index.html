@@ -17,17 +17,20 @@
 
     <div class="container">
         <h2>Consulta de IP</h2>
+
+        <!-- Consulta de um IP digitado -->
         <div class="input-box">
             <input type="text" id="ipInput" placeholder="Digite um IP para consultar">
-            <button onclick="buscarIP()">Buscar IP Digitado</button>
+            <button onclick="buscarIP()">Buscar</button>
         </div>
         <div id="resultado"></div>
-    </div>
 
-    <div class="container">
-        <h2>Consulta de IP da Internet</h2>
-        <button onclick="buscarIP('internet')">Buscar Meu IP da Internet</button>
-        <div id="resultadoInternet"></div>
+        <!-- Consulta do IP da Internet -->
+        <div class="internet-box">
+            <h2>Seu IP da Internet</h2>
+            <button onclick="buscarIPInternet()">Consultar Meu IP</button>
+            <div id="resultado-internet"></div>
+        </div>
     </div>
 
     <script src="script.js"></script>
