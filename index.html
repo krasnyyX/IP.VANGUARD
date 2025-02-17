@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Consulta de IP</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
     <header>
-        <h1>Consulta de IP</h1>
+        <h1>IP VNG</h1>
         <nav>
             <a href="#">Home</a>
             <a href="#">Contato</a>
@@ -17,18 +16,15 @@
     </header>
 
     <main>
-        <section class="container">
-            <h2>Meu IP</h2>
-            <button id="meuIpBtn">Ver Meu IP</button>
-
-            <h2>IP do Wi-Fi</h2>
-            <button id="ipWifiBtn">Ver IP do Wi-Fi</button>
-
+        <section class="consulta-container">
             <h2>Consulta de IP</h2>
-            <input type="text" id="inputIp" placeholder="Digite um IP (opcional)">
-            <button id="consultaBtn">Consultar</button>
-
-            <div id="resultado"></div>
+            <div class="input-container">
+                <input type="text" id="ip-input" placeholder="Digite um IP ou deixe em branco">
+                <button id="btn-buscar">Buscar</button>
+            </div>
+            <div id="resultado" class="resultado-box">
+                <!-- Resultado da consulta será exibido aqui -->
+            </div>
         </section>
     </main>
 
