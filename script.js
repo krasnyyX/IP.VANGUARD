@@ -1,66 +1,48 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const inputIP = document.getElementById("ip-input");
-    const btnBuscar = document.getElementById("btn-buscar");
-    const resultBox = document.getElementById("resultado");
+async function obterMeuIP() {
+    try {
+        const response = await fetch('https://api64.ipify.org?format=json');
+        const data = await response.json();
+        document.getElementById('meu-ip').textContent = `IPv4: ${data.ip}`;
+    } catch (error) {
+        document.getElementById('meu-ip').textContent = "Erro ao obter IP.";
+    }
+}
 
-    // Consulta IP inserido ou IP do usuário
-    btnBuscar.addEventListener("click", async function () {
-        let ip = inputIP.value.trim();
-        if (!ip) {
-            ip = await obterIPPublico(); // Se vazio, pega o IP público do usuário
-        }
-        consultarIP(ip);
-    });
+async function obterIPWiFi() {
+    try {
+        const response = await fetch('https://api.ipify.org?format=json');
+        const data = await response.json();
+        document.getElementById('wifi-ip').textContent = `IP do Wi-Fi: ${data.ip}`;
+    } catch (error) {
+        document.getElementById('wifi-ip').textContent = "Erro ao obter IP do Wi-Fi.";
+    }
+}
 
-    // Obtém o IP público automaticamente ao carregar a página
-    async function obterIPPublico() {
-        try {
-            const response = await fetch("https://api64.ipify.org?format=json");
-            const data = await response.json();
-            return data.ip;
-        } catch (error) {
-            console.error("Erro ao obter IP público:", error);
-            return "Erro ao obter IP";
-        }
+async function consultarIP() {
+    const ip = document.getElementById('ip-input').value.trim();
+    if (!ip) {
+        document.getElementById('resultado').textContent = "Digite um IP válido.";
+        return;
     }
 
-    // Obtém o IP do Wi-Fi
-    async function obterIPWiFi() {
-        try {
-            const response = await fetch("https://ipwho.is/");
-            const data = await response.json();
-            return data.ip;
-        } catch (error) {
-            console.error("Erro ao obter IP do Wi-Fi:", error);
-            return "Erro ao obter IP do Wi-Fi";
-        }
+    try {
+        const response = await fetch(`https://ipinfo.io/${ip}/json`);
+        if (!response.ok) throw new Error("Erro ao consultar IP.");
+
+        const data = await response.json();
+        document.getElementById('resultado').innerHTML = `
+            <p><strong>IP:</strong> ${data.ip}</p>
+            <p><strong>País:</strong> ${data.country || "Não disponível"}</p>
+            <p><strong>Região:</strong> ${data.region || "Não disponível"}</p>
+            <p><strong>Cidade:</strong> ${data.city || "Não disponível"}</p>
+            <p><strong>Provedor:</strong> ${data.org || "Não disponível"}</p>
+        `;
+    } catch (error) {
+        document.getElementById('resultado').textContent = "Erro ao buscar informações.";
     }
+}
 
-    // Consulta as informações do IP
-    async function consultarIP(ip) {
-        try {
-            const response = await fetch(`https://ipwho.is/${ip}`);
-            const data = await response.json();
-
-            if (!data.success) {
-                resultBox.innerHTML = "IP inválido ou não encontrado.";
-                return;
-            }
-
-            // Exibir informações detalhadas
-            resultBox.innerHTML = `
-                <b>IP:</b> ${data.ip} <br>
-                <b>País:</b> ${data.country} (${data.country_code}) <br>
-                <b>Região:</b> ${data.region} <br>
-                <b>Cidade:</b> ${data.city} <br>
-                <b>Provedor (ISP):</b> ${data.connection.isp} <br>
-                <b>Organização:</b> ${data.connection.org} <br>
-                <b>VPN/Proxy:</b> ${data.security.vpn ? "Sim" : "Não"} <br>
-                <b>IP do Wi-Fi:</b> ${await obterIPWiFi()} <br>
-            `;
-        } catch (error) {
-            resultBox.innerHTML = "Erro ao consultar o IP.";
-            console.error("Erro na consulta de IP:", error);
-        }
-    }
-});
+window.onload = function () {
+    obterMeuIP();
+    obterIPWiFi();
+};
