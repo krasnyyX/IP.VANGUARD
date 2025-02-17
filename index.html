@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IP VNG</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Cabeçalho -->
+    <header>
+        <h1>IP VNG</h1>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">Contato</a>
+        </nav>
+    </header>
+
+    <!-- Conteúdo principal -->
+    <main>
+        <div class="container">
+            <h2>Meu IP</h2>
+            <button onclick="verMeuIP()">Ver Meu IP</button>
+            <p id="meu-ip"></p>
+
+            <h2>Consulta de IP</h2>
+            <input type="text" id="input-ip" placeholder="Digite um IP ou deixe em branco">
+            <button onclick="consultarIP()">Buscar</button>
+            <p id="resultado-ip"></p>
+
+            <h2>IP do Dispositivo</h2>
+            <button onclick="verIPDispositivo()">Ver IP do Dispositivo</button>
+            <p id="ip-dispositivo"></p>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
