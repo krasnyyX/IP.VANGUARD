@@ -14,66 +14,78 @@ body {
 
 .container {
     width: 90%;
-    max-width: 600px;
-    margin: 50px auto;
-    padding: 20px;
-    background: rgba(0, 0, 0, 0.8);
-    border-radius: 10px;
-    box-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
+    max-width: 500px;
+    margin: 60px auto;
+    padding: 25px;
+    background: rgba(0, 0, 0, 0.85);
+    border-radius: 12px;
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.7);
 }
 
 h1 {
-    color: #ff0000;
-    font-size: 24px;
-    margin-bottom: 20px;
+    color: #ff4444;
+    font-size: 26px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 input, button, select {
     width: 100%;
-    padding: 10px;
-    margin-top: 10px;
+    padding: 12px;
+    margin-top: 12px;
     border: none;
-    border-radius: 5px;
+    border-radius: 6px;
     font-size: 16px;
 }
 
 input {
-    background: #222;
+    background: #1a1a1a;
     color: white;
-    border: 1px solid #ff0000;
+    border: 1px solid #ff4444;
+    outline: none;
+    transition: 0.3s;
+}
+
+input:focus {
+    border-color: #ff6666;
 }
 
 button {
-    background: #ff0000;
+    background: #ff4444;
     color: white;
+    font-weight: bold;
     cursor: pointer;
-    transition: 0.3s;
+    transition: background 0.3s, transform 0.2s;
 }
 
 button:hover {
     background: #cc0000;
+    transform: scale(1.05);
 }
 
 #myIPResult, #lookupResult {
     margin-top: 20px;
-    padding: 10px;
+    padding: 12px;
     background: rgba(255, 0, 0, 0.2);
-    border-radius: 5px;
+    border-radius: 6px;
+    font-size: 14px;
 }
 
-/* Menu superior */
 .header {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 10px 20px;
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.85);
     position: fixed;
     width: 100%;
     top: 0;
+    box-shadow: 0 2px 10px rgba(255, 0, 0, 0.5);
 }
 
 .header a {
-    color: #ff0000;
+    color: #ff4444;
     text-decoration: none;
     font-size: 18px;
 }
@@ -82,6 +94,6 @@ button:hover {
     background: #222;
     color: white;
     padding: 5px;
-    border: 1px solid #ff0000;
+    border: 1px solid #ff4444;
     border-radius: 5px;
 }
