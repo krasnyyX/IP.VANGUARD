@@ -3,37 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IP VNG</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Consulta de IP</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-    <!-- Cabeçalho -->
     <header>
-        <h1>IP VNG</h1>
+        <h2 class="logo">IP VNG</h2>
         <nav>
             <a href="#">Home</a>
-            <a href="#">Contato</a>
+            <a href="https://t.me/azrakothx" target="_blank">Contato</a>
         </nav>
     </header>
 
-    <!-- Conteúdo principal -->
-    <main>
-        <div class="container">
-            <h2>Meu IP</h2>
-            <button onclick="verMeuIP()">Ver Meu IP</button>
-            <p id="meu-ip"></p>
+    <div class="container">
+        <h1>Consulta de IP</h1>
 
-            <h2>Consulta de IP</h2>
-            <input type="text" id="input-ip" placeholder="Digite um IP ou deixe em branco">
-            <button onclick="consultarIP()">Buscar</button>
-            <p id="resultado-ip"></p>
-
-            <h2>IP do Dispositivo</h2>
-            <button onclick="verIPDispositivo()">Ver IP do Dispositivo</button>
-            <p id="ip-dispositivo"></p>
+        <!-- Meu IP -->
+        <div class="input-box">
+            <button onclick="meuIP()">Ver Meu IP</button>
+            <div id="meuIpResultado" class="resultado"></div>
         </div>
-    </main>
+
+        <!-- Consulta de IP -->
+        <div class="input-box">
+            <input type="text" id="ipInput" placeholder="Digite um IP">
+            <button onclick="buscarIP()">Buscar</button>
+            <div id="resultado" class="resultado"></div>
+        </div>
+
+        <!-- Consulta IP do Dispositivo -->
+        <div class="input-box">
+            <button onclick="consultaDispositivo()">Ver IP do Dispositivo</button>
+            <div id="dispositivoResultado" class="resultado"></div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
