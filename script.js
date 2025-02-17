@@ -1,68 +1,105 @@
-async function meuIP() {
+// Função para obter o IP público do usuário
+async function obterMeuIP() {
+    let resultadoDiv = document.getElementById("resultadoMeuIP");
+
     try {
-        const response = await fetch("https://api64.ipify.org?format=json");
-        const data = await response.json();
-        
-        const responseInfo = await fetch(`https://ipinfo.io/${data.ip}/json`);
-        const info = await responseInfo.json();
-        
-        exibirResultado(info, "meuIpResultado");
+        let response = await fetch("https://api64.ipify.org?format=json");
+        let data = await response.json();
+
+        resultadoDiv.innerHTML = `
+            <strong>Seu IP Público:</strong> ${data.ip} <br>
+            <strong>Tipo:</strong> ${data.ip.includes(":") ? "IPv6" : "IPv4"}
+        `;
     } catch (error) {
-        document.getElementById("meuIpResultado").innerHTML = `<p style="color: red;">Erro ao obter IP.</p>`;
+        resultadoDiv.innerHTML = "Erro ao obter seu IP.";
     }
 }
 
-async function buscarIP() {
+// Função para consultar informações de um IP digitado
+async function consultarIP() {
     let ip = document.getElementById("ipInput").value.trim();
-    if (!ip) {
-        document.getElementById("resultado").innerHTML = `<p style="color: red;">Digite um IP válido!</p>`;
+    let resultadoDiv = document.getElementById("resultadoIP");
+
+    if (ip === "") {
+        resultadoDiv.innerHTML = "Digite um IP válido.";
         return;
     }
 
     try {
-        const response = await fetch(`https://ipinfo.io/${ip}/json`);
-        const data = await response.json();
-        
-        if (data.bogon) {
-            throw new Error("IP inválido ou reservado.");
+        let response = await fetch(`https://ipapi.co/${ip}/json/`);
+        let data = await response.json();
+
+        if (data.error) {
+            resultadoDiv.innerHTML = "IP inválido ou reservado.";
+            return;
         }
 
-        exibirResultado(data, "resultado");
+        resultadoDiv.innerHTML = `
+            <strong>IP:</strong> ${data.ip} <br>
+            <strong>Provedor:</strong> ${data.org || "Não disponível"} <br>
+            <strong>Localização:</strong> ${data.city}, ${data.region}, ${data.country_name} <br>
+            <strong>Tipo:</strong> ${data.version} (${data.version === "4" ? "IPv4" : "IPv6"})
+        `;
     } catch (error) {
-        document.getElementById("resultado").innerHTML = `<p style="color: red;">${error.message}</p>`;
+        resultadoDiv.innerHTML = "Erro ao consultar o IP.";
     }
 }
 
-async function consultaDispositivo() {
+// Função para obter o IP local do dispositivo
+async function obterIPDispositivo() {
+    let resultadoDiv = document.getElementById("resultadoIPDispositivo");
+
     try {
-        const response = await fetch("https://api.ipify.org?format=json");
-        const data = await response.json();
+        let peerConnection = new RTCPeerConnection({ iceServers: [] });
 
-        const responseInfo = await fetch(`https://ipinfo.io/${data.ip}/json`);
-        const info = await responseInfo.json();
+        peerConnection.createDataChannel("");
+        let offer = await peerConnection.createOffer();
+        await peerConnection.setLocalDescription(offer);
 
-        exibirResultado(info, "dispositivoResultado");
+        peerConnection.onicecandidate = (event) => {
+            if (event.candidate) {
+                let ip = event.candidate.candidate.split(" ")[4];
+                resultadoDiv.innerHTML = `<strong>IP do Dispositivo:</strong> ${ip}`;
+                peerConnection.close();
+            }
+        };
     } catch (error) {
-        document.getElementById("dispositivoResultado").innerHTML = `<p style="color: red;">Erro ao obter IP do dispositivo.</p>`;
+        resultadoDiv.innerHTML = "Erro ao obter IP do dispositivo.";
     }
 }
 
-function exibirResultado(data, elementoID) {
-    let [lat, lon] = data.loc ? data.loc.split(",") : ["Não disponível", "Não disponível"];
-    const googleMapsUrl = `https://www.google.com/maps?q=${lat},${lon}`;
+// Função para consultar CPF (simulação)
+async function consultarCPF() {
+    let cpf = document.getElementById("cpfInput").value.trim();
+    let resultadoDiv = document.getElementById("resultadoCPF");
 
-    const resultado = `
-        <div class="resultado-box">
-            <h3>🔍 Informações do IP</h3>
-            <p><strong>📌 IP:</strong> ${data.ip}</p>
-            <p><strong>🌍 País:</strong> ${data.country || "Não disponível"}</p>
-            <p><strong>🏙️ Estado:</strong> ${data.region || "Não disponível"}</p>
-            <p><strong>🏡 Cidade:</strong> ${data.city || "Não disponível"}</p>
-            <p><strong>🛰️ Provedor:</strong> ${data.org || "Não disponível"}</p>
-            <p><strong>📍 Localização:</strong> ${lat}, ${lon}</p>
-            <p><a href="${googleMapsUrl}" target="_blank">🗺️ Ver no Google Maps</a></p>
-        </div>
-    `;
+    if (cpf === "") {
+        resultadoDiv.innerHTML = "Digite um CPF válido.";
+        return;
+    }
 
-    document.getElementById(elementoID).innerHTML = resultado;
+    try {
+        // Simulação de API para consulta de CPF (trocar por uma API real)
+        let response = await fetch(`https://api.exemplo.com/cpf/${cpf}`);
+        let data = await response.json();
+
+        if (data.error) {
+            resultadoDiv.innerHTML = "CPF inválido ou não encontrado.";
+            return;
+        }
+
+        resultadoDiv.innerHTML = `
+            <strong>Nome:</strong> ${data.nome} <br>
+            <strong>Data de Nascimento:</strong> ${data.nascimento} <br>
+            <strong>Situação:</strong> ${data.situacao}
+        `;
+    } catch (error) {
+        resultadoDiv.innerHTML = "Erro ao consultar o CPF.";
+    }
 }
+
+// Event Listeners
+document.getElementById("btnMeuIP").addEventListener("click", obterMeuIP);
+document.getElementById("btnConsultarIP").addEventListener("click", consultarIP);
+document.getElementById("btnIPDispositivo").addEventListener("click", obterIPDispositivo);
+document.getElementById("btnConsultarCPF").addEventListener("click", consultarCPF);
