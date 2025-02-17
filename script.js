@@ -1,26 +1,23 @@
 async function buscarMeuIP() {
     try {
-        const responseIPv4 = await fetch("https://api4.my-ip.io/ip.json");
-        const responseIPv6 = await fetch("https://api64.ipify.org?format=json");
+        let response = await fetch("https://api64.ipify.org?format=json");
+        if (!response.ok) throw new Error("Erro ao buscar IPv4");
 
-        if (!responseIPv4.ok || !responseIPv6.ok) {
-            throw new Error("Erro ao buscar informações do IP.");
-        }
+        let data = await response.json();
+        let ipv4 = data.ip;
 
-        const dataIPv4 = await responseIPv4.json();
-        const dataIPv6 = await responseIPv6.json();
+        response = await fetch("https://api64.ipify.org?format=json");
+        let ipv6 = response.ok ? (await response.json()).ip : "Não disponível";
 
-        let resultado = `
+        document.getElementById("meuIPResultado").innerHTML = `
             <div class="resultado-box">
                 <h3>🔍 Meu IP</h3>
-                <p><strong>🌐 IPv4:</strong> ${dataIPv4.ip}</p>
-                <p><strong>🔗 IPv6:</strong> ${dataIPv6.ip || "Não disponível"}</p>
+                <p><strong>🌐 IPv4:</strong> ${ipv4}</p>
+                <p><strong>🆔 IPv6:</strong> ${ipv6}</p>
             </div>
         `;
-
-        document.getElementById('meuIPResultado').innerHTML = resultado;
     } catch (error) {
-        document.getElementById('meuIPResultado').innerHTML = `<p style="color: red;">${error.message}</p>`;
+        document.getElementById("meuIPResultado").innerHTML = `<p style="color: red;">${error.message}</p>`;
     }
 }
 
@@ -30,14 +27,10 @@ async function buscarIP() {
 
     try {
         const response = await fetch(url);
-        if (!response.ok) {
-            throw new Error("Erro ao buscar informações.");
-        }
+        if (!response.ok) throw new Error("Erro ao buscar informações.");
 
         const data = await response.json();
-        if (data.bogon) {
-            throw new Error("IP inválido ou reservado.");
-        }
+        if (data.bogon) throw new Error("IP inválido ou reservado.");
 
         exibirResultado(data);
     } catch (error) {
@@ -65,23 +58,20 @@ function exibirResultado(data) {
     document.getElementById('resultado').innerHTML = resultado;
 }
 
-// Consulta o IP do dispositivo (local)
 async function buscarIPDispositivo() {
     try {
-        const connection = await navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-        let tipo = connection ? connection.type : "Não disponível";
-        let velocidade = connection ? connection.downlink + " Mbps" : "Não disponível";
+        let connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+        let connectionType = connection ? connection.effectiveType.toUpperCase() : "Desconhecido";
+        let speed = connection ? connection.downlink + " Mbps" : "Desconhecida";
 
-        let resultado = `
+        document.getElementById("dispositivoResultado").innerHTML = `
             <div class="resultado-box">
-                <h3>📱 IP do Dispositivo</h3>
-                <p><strong>📶 Tipo de Conexão:</strong> ${tipo}</p>
-                <p><strong>⚡ Velocidade Estimada:</strong> ${velocidade}</p>
+                <h3>📲 IP do Dispositivo</h3>
+                <p><strong>🔌 Tipo de conexão:</strong> ${connectionType}</p>
+                <p><strong>⚡ Velocidade:</strong> ${speed}</p>
             </div>
         `;
-
-        document.getElementById('dispositivoResultado').innerHTML = resultado;
     } catch (error) {
-        document.getElementById('dispositivoResultado').innerHTML = `<p style="color: red;">${error.message}</p>`;
+        document.getElementById("dispositivoResultado").innerHTML = `<p style="color: red;">Erro ao buscar informações.</p>`;
     }
 }
