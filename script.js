@@ -1,20 +1,20 @@
 async function buscarMeuIP() {
     try {
-        // IP da Internet (Forçando IPv4)
+        // IP da Internet (IPv4 real da conexão)
         const responseInternet = await fetch("https://api4.ipify.org?format=json");
         const dataInternet = await responseInternet.json();
         const meuIPInternet = dataInternet.ip;
 
-        // IP do Dispositivo (Rede Local)
+        // IP do Dispositivo (Local)
         const responseDispositivo = await fetch("https://api64.ipify.org?format=json");
         const dataDispositivo = await responseDispositivo.json();
         const meuIPDispositivo = dataDispositivo.ip;
 
         document.getElementById('resultado-meu-ip').innerHTML = `
-            <div class="resultado-box">
+            <div class="resultado-box pequeno">
                 <h3>📡 Meu IP</h3>
-                <p><strong>🌎 IP da Internet (IPv4):</strong> ${meuIPInternet}</p>
-                <p><strong>📶 IP do Dispositivo (Local):</strong> ${meuIPDispositivo}</p>
+                <p><strong>🌎 Internet:</strong> <span class="ip-pequeno">${meuIPInternet}</span></p>
+                <p><strong>📶 Dispositivo:</strong> <span class="ip-pequeno">${meuIPDispositivo}</span></p>
             </div>
         `;
     } catch (error) {
@@ -49,9 +49,9 @@ async function buscarIPInternet() {
         const data = await response.json();
 
         document.getElementById('resultado-internet').innerHTML = `
-            <div class="resultado-box">
+            <div class="resultado-box pequeno">
                 <h3>🌎 IP da Internet</h3>
-                <p><strong>📡 IP Público:</strong> ${data.ip}</p>
+                <p><strong>📡 Público:</strong> <span class="ip-pequeno">${data.ip}</span></p>
             </div>
         `;
     } catch (error) {
@@ -65,9 +65,9 @@ async function buscarIPDispositivo() {
         const data = await response.json();
 
         document.getElementById('resultado-dispositivo').innerHTML = `
-            <div class="resultado-box">
+            <div class="resultado-box pequeno">
                 <h3>📶 IP do Dispositivo</h3>
-                <p><strong>🖥️ IP Local:</strong> ${data.ip}</p>
+                <p><strong>🖥️ Local:</strong> <span class="ip-pequeno">${data.ip}</span></p>
             </div>
         `;
     } catch (error) {
