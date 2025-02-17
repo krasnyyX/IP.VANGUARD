@@ -19,16 +19,16 @@ async function buscarIP() {
             throw new Error("IP inválido ou reservado.");
         }
 
-        exibirResultado(data);
+        exibirResultado(data, "resultado");
     } catch (error) {
         document.getElementById('resultado').innerHTML = `<p style="color: red;">${error.message}</p>`;
     }
 }
 
-// Consulta do IP da internet do usuário
+// Consulta do IP da internet do usuário (forçando IPv4)
 async function buscarIPInternet() {
     try {
-        const ipResponse = await fetch("https://api64.ipify.org?format=json");
+        const ipResponse = await fetch("https://api.ipify.org?format=json");
         const ipData = await ipResponse.json();
         const ip = ipData.ip;
 
@@ -39,20 +39,20 @@ async function buscarIPInternet() {
         }
 
         const data = await response.json();
-        exibirResultado(data, true);
+        exibirResultado(data, "resultado-internet");
     } catch (error) {
         document.getElementById('resultado-internet').innerHTML = `<p style="color: red;">Erro ao buscar o IP da internet.</p>`;
     }
 }
 
 // Exibe os resultados formatados
-function exibirResultado(data, isInternet = false) {
+function exibirResultado(data, resultadoId) {
     let [lat, lon] = data.loc ? data.loc.split(",") : ["Não disponível", "Não disponível"];
     const googleMapsUrl = `https://www.google.com/maps?q=${lat},${lon}`;
 
     const resultado = `
         <div class="resultado-box">
-            <h3>🔍 ${isInternet ? "Seu IP da Internet" : "Informações do IP"}</h3>
+            <h3>🔍 Informações do IP</h3>
             <p><strong>📌 IP:</strong> ${data.ip}</p>
             <p><strong>🌍 País:</strong> ${data.country || "Não disponível"}</p>
             <p><strong>🏙️ Estado:</strong> ${data.region || "Não disponível"}</p>
@@ -63,9 +63,5 @@ function exibirResultado(data, isInternet = false) {
         </div>
     `;
 
-    if (isInternet) {
-        document.getElementById('resultado-internet').innerHTML = resultado;
-    } else {
-        document.getElementById('resultado').innerHTML = resultado;
-    }
+    document.getElementById(resultadoId).innerHTML = resultado;
 }
