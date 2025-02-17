@@ -1,105 +1,72 @@
-// Função para obter o IP público do usuário
-async function obterMeuIP() {
-    let resultadoDiv = document.getElementById("resultadoMeuIP");
+// Elementos do HTML
+const meuIpBtn = document.getElementById("meuIpBtn");
+const ipWifiBtn = document.getElementById("ipWifiBtn");
+const consultaBtn = document.getElementById("consultaBtn");
+const inputIp = document.getElementById("inputIp");
+const resultadoDiv = document.getElementById("resultado");
 
+// Função para buscar o IP público (internet)
+async function pegarMeuIP() {
     try {
-        let response = await fetch("https://api64.ipify.org?format=json");
-        let data = await response.json();
-
-        resultadoDiv.innerHTML = `
-            <strong>Seu IP Público:</strong> ${data.ip} <br>
-            <strong>Tipo:</strong> ${data.ip.includes(":") ? "IPv6" : "IPv4"}
-        `;
+        const response = await fetch("https://api64.ipify.org?format=json");
+        const data = await response.json();
+        const meuIp = data.ip;
+        buscarInformacoesIP(meuIp);
     } catch (error) {
-        resultadoDiv.innerHTML = "Erro ao obter seu IP.";
+        resultadoDiv.innerHTML = "Erro ao buscar seu IP.";
     }
 }
 
-// Função para consultar informações de um IP digitado
-async function consultarIP() {
-    let ip = document.getElementById("ipInput").value.trim();
-    let resultadoDiv = document.getElementById("resultadoIP");
-
-    if (ip === "") {
-        resultadoDiv.innerHTML = "Digite um IP válido.";
-        return;
-    }
-
+// Função para pegar o IP da rede local (Wi-Fi)
+async function pegarIpWiFi() {
     try {
-        let response = await fetch(`https://ipapi.co/${ip}/json/`);
-        let data = await response.json();
+        const response = await fetch("https://api.my-ip.io/ip.json");
+        const data = await response.json();
+        const ipWiFi = data.ip;
+        buscarInformacoesIP(ipWiFi);
+    } catch (error) {
+        resultadoDiv.innerHTML = "Erro ao buscar o IP do Wi-Fi.";
+    }
+}
 
-        if (data.error) {
-            resultadoDiv.innerHTML = "IP inválido ou reservado.";
+// Função para buscar informações de um IP específico
+async function buscarInformacoesIP(ip) {
+    try {
+        const response = await fetch(`https://ipwho.is/${ip}`);
+        const data = await response.json();
+
+        if (!data.success) {
+            resultadoDiv.innerHTML = "IP inválido ou erro na consulta.";
             return;
         }
 
         resultadoDiv.innerHTML = `
             <strong>IP:</strong> ${data.ip} <br>
-            <strong>Provedor:</strong> ${data.org || "Não disponível"} <br>
-            <strong>Localização:</strong> ${data.city}, ${data.region}, ${data.country_name} <br>
-            <strong>Tipo:</strong> ${data.version} (${data.version === "4" ? "IPv4" : "IPv6"})
+            <strong>Tipo:</strong> ${data.type} <br>
+            <strong>País:</strong> ${data.country} (${data.country_code}) <br>
+            <strong>Região:</strong> ${data.region} <br>
+            <strong>Cidade:</strong> ${data.city} <br>
+            <strong>Provedor:</strong> ${data.org} <br>
+            <strong>Latitude:</strong> ${data.latitude} <br>
+            <strong>Longitude:</strong> ${data.longitude} <br>
         `;
     } catch (error) {
-        resultadoDiv.innerHTML = "Erro ao consultar o IP.";
+        resultadoDiv.innerHTML = "Erro ao buscar informações do IP.";
     }
 }
 
-// Função para obter o IP local do dispositivo
-async function obterIPDispositivo() {
-    let resultadoDiv = document.getElementById("resultadoIPDispositivo");
+// Evento para pegar o IP público
+meuIpBtn.addEventListener("click", pegarMeuIP);
 
-    try {
-        let peerConnection = new RTCPeerConnection({ iceServers: [] });
+// Evento para pegar o IP da rede Wi-Fi
+ipWifiBtn.addEventListener("click", pegarIpWiFi);
 
-        peerConnection.createDataChannel("");
-        let offer = await peerConnection.createOffer();
-        await peerConnection.setLocalDescription(offer);
-
-        peerConnection.onicecandidate = (event) => {
-            if (event.candidate) {
-                let ip = event.candidate.candidate.split(" ")[4];
-                resultadoDiv.innerHTML = `<strong>IP do Dispositivo:</strong> ${ip}`;
-                peerConnection.close();
-            }
-        };
-    } catch (error) {
-        resultadoDiv.innerHTML = "Erro ao obter IP do dispositivo.";
+// Evento para consultar um IP digitado
+consultaBtn.addEventListener("click", () => {
+    const ip = inputIp.value.trim();
+    if (ip) {
+        buscarInformacoesIP(ip);
+    } else {
+        resultadoDiv.innerHTML = "Digite um IP válido.";
     }
-}
-
-// Função para consultar CPF (simulação)
-async function consultarCPF() {
-    let cpf = document.getElementById("cpfInput").value.trim();
-    let resultadoDiv = document.getElementById("resultadoCPF");
-
-    if (cpf === "") {
-        resultadoDiv.innerHTML = "Digite um CPF válido.";
-        return;
-    }
-
-    try {
-        // Simulação de API para consulta de CPF (trocar por uma API real)
-        let response = await fetch(`https://api.exemplo.com/cpf/${cpf}`);
-        let data = await response.json();
-
-        if (data.error) {
-            resultadoDiv.innerHTML = "CPF inválido ou não encontrado.";
-            return;
-        }
-
-        resultadoDiv.innerHTML = `
-            <strong>Nome:</strong> ${data.nome} <br>
-            <strong>Data de Nascimento:</strong> ${data.nascimento} <br>
-            <strong>Situação:</strong> ${data.situacao}
-        `;
-    } catch (error) {
-        resultadoDiv.innerHTML = "Erro ao consultar o CPF.";
-    }
-}
-
-// Event Listeners
-document.getElementById("btnMeuIP").addEventListener("click", obterMeuIP);
-document.getElementById("btnConsultarIP").addEventListener("click", consultarIP);
-document.getElementById("btnIPDispositivo").addEventListener("click", obterIPDispositivo);
-document.getElementById("btnConsultarCPF").addEventListener("click", consultarCPF);
+});
