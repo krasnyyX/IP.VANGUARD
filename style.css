@@ -11,7 +11,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    min-height: 100vh;
+    height: 100vh;
     background: url('https://i.ibb.co/DgH6nJrb/background.jpg') no-repeat center center/cover;
     color: white;
 }
@@ -27,8 +27,6 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    backdrop-filter: blur(5px);
-    border-bottom: 2px solid #00ffcc;
 }
 
 .logo {
@@ -54,87 +52,81 @@ header {
     margin-top: 120px;
     text-align: center;
     background: rgba(255, 255, 255, 0.15);
-    padding: 30px;
-    border-radius: 15px;
-    backdrop-filter: blur(10px);
-    width: 90%;
-    max-width: 500px;
-    box-shadow: 0px 0px 10px rgba(0, 255, 204, 0.3);
-}
-
-/* Seções individuais */
-.section {
-    background: rgba(0, 0, 0, 0.7);
-    padding: 20px;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    box-shadow: 0px 0px 10px rgba(0, 255, 204, 0.2);
+    padding: 25px;
+    border-radius: 12px;
+    backdrop-filter: blur(12px);
+    width: 420px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 h2 {
-    margin-bottom: 10px;
-    color: #00ffcc;
+    font-size: 1.8em;
+    margin-bottom: 20px;
 }
 
-/* Botões */
-button {
-    padding: 10px 20px;
-    background: #00ffcc;
-    border: none;
-    color: black;
-    font-weight: bold;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-button:hover {
-    background: white;
-    color: black;
-}
-
-/* Input */
+/* Botões e inputs */
 .input-box {
-    margin-top: 10px;
+    margin-top: 15px;
 }
 
 input {
     padding: 10px;
     width: 70%;
-    border: none;
-    outline: none;
+    border: 1px solid #00ffcc;
     border-radius: 5px;
-    background: white;
+    outline: none;
+    background: rgba(255, 255, 255, 0.9);
     color: black;
     font-weight: bold;
 }
 
-/* Resultados */
+button {
+    padding: 10px 15px;
+    margin-top: 10px;
+    background: #00ffcc;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #008f99;
+    color: white;
+}
+
+/* Estilização das caixas de resultado */
 .resultado-box {
     background: rgba(0, 0, 0, 0.8);
     padding: 15px;
     border-radius: 10px;
     text-align: left;
-    width: 100%;
-    max-width: 400px;
+    width: 90%;
+    max-width: 420px;
     margin-top: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 255, 204, 0.2);
+    box-shadow: 0 0 8px rgba(0, 255, 204, 0.7);
 }
 
 .resultado-box h3 {
     color: #00ffcc;
     text-align: center;
     margin-bottom: 10px;
+    font-size: 1.3em;
 }
 
 .resultado-box p {
     margin: 5px 0;
     color: #ffffff;
-    font-size: 14px;
+    font-size: 1em;
 }
 
 .resultado-box a {
     color: #00ffcc;
     text-decoration: none;
     font-weight: bold;
+}
+
+.resultado-box a:hover {
+    text-decoration: underline;
 }
