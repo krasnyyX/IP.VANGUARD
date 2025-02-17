@@ -1,122 +1,66 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
-
+/* Estilo global */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+    font-family: Arial, sans-serif;
 }
 
+/* Fundo e layout geral */
 body {
+    background: url('https://i.ibb.co/DgH6nJrb/background.jpg') no-repeat center center fixed;
+    background-size: cover;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: url('https://i.ibb.co/DgH6nJrb/background.jpg') no-repeat center center/cover;
-    color: white;
-    padding-top: 80px;
+    justify-content: center;
 }
 
-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    padding: 15px 50px;
-    background: rgba(0, 0, 0, 0.8);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 1000;
-}
-
-.logo {
-    font-size: 1.5em;
-    font-weight: 600;
-}
-
-.navigation a {
-    margin-left: 20px;
-    color: white;
-    text-decoration: none;
-    font-weight: 500;
-}
-
+/* Caixa principal */
 .container {
-    text-align: center;
-    background: rgba(255, 255, 255, 0.1);
-    padding: 20px;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 30px;
     border-radius: 10px;
-    backdrop-filter: blur(8px);
+    text-align: center;
     width: 90%;
-    max-width: 400px;
-    margin-top: 20px;
+    max-width: 500px;
 }
 
-h2 {
-    font-size: 1.4em;
+/* Títulos */
+h1, h2 {
+    color: #fff;
     margin-bottom: 15px;
 }
 
-.input-box {
-    margin-top: 10px;
-}
-
-input {
-    padding: 8px;
-    width: 70%;
-    border: none;
-    outline: none;
-    background: white;
-    color: black;
-    border-radius: 5px;
-}
-
+/* Botões */
 button {
-    padding: 8px 15px;
     background: #00ffcc;
+    color: #000;
+    padding: 12px 20px;
     border: none;
-    cursor: pointer;
-    transition: 0.3s;
     border-radius: 5px;
-    font-weight: 500;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
 }
 
 button:hover {
-    background: #00bfa5;
+    background: #00cca3;
 }
 
-.resultado-box {
-    background: rgba(0, 0, 0, 0.8);
-    padding: 15px;
-    border-radius: 10px;
-    text-align: left;
-    width: 100%;
-    max-width: 350px;
+/* Input de consulta */
+input {
+    width: 80%;
+    padding: 10px;
     margin-top: 10px;
+    border-radius: 5px;
+    border: none;
 }
 
-.resultado-box h3 {
-    color: #00ffcc;
-    text-align: center;
-    margin-bottom: 10px;
-}
-
-.resultado-box p {
-    margin: 5px 0;
-    color: #ffffff;
-}
-
-.resultado-box a {
-    color: #00ffcc;
-    text-decoration: none;
-}
-
-@media (max-width: 600px) {
+/* Responsividade */
+@media (max-width: 768px) {
     .container {
         width: 95%;
-    }
-
-    input {
-        width: 65%;
     }
 }
