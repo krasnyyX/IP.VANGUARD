@@ -1,40 +1,39 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Consulta de IP</title>
-    <link rel="stylesheet" href="style.css">
+    <title>IP VNG</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+
     <header>
-        <h2 class="logo">IP VNG</h2>
-        <nav class="navigation">
+        <h1>IP VNG</h1>
+        <nav>
             <a href="#">Home</a>
-            <a href="https://t.me/azrakothx" target="_blank">Contato</a>
+            <a href="#">Contato</a>
         </nav>
     </header>
 
-    <div class="container">
-        <!-- Meu IP -->
-        <h2>Meu IP</h2>
-        <button onclick="buscarMeuIP()">Ver Meu IP</button>
-        <div id="meuIPResultado"></div>
+    <main>
+        <div class="container">
+            <h2>Meu IP</h2>
+            <button onclick="mostrarMeuIP()">Ver Meu IP</button>
+            <p id="meu-ip"></p>
 
-        <!-- Consulta de IP -->
-        <h2>Consulta de IP</h2>
-        <div class="input-box">
-            <input type="text" id="ipInput" placeholder="Digite um IP ou deixe em branco para seu IP">
-            <button onclick="buscarIP()">Buscar</button>
+            <h2>Consulta de IP</h2>
+            <input type="text" id="input-ip" placeholder="Digite um IP ou deixe em branco">
+            <button onclick="consultarIP()">Buscar</button>
+            <p id="resultado-ip"></p>
+
+            <h2>IP do Dispositivo</h2>
+            <button onclick="consultarIPDispositivo()">Ver IP do Dispositivo</button>
+            <p id="ip-dispositivo"></p>
         </div>
-        <div id="resultado"></div>
-
-        <!-- IP do Dispositivo -->
-        <h2>IP do Dispositivo</h2>
-        <button onclick="buscarIPDispositivo()">Ver IP do Dispositivo</button>
-        <div id="dispositivoResultado"></div>
-    </div>
+    </main>
 
     <script src="script.js"></script>
+
 </body>
 </html>
