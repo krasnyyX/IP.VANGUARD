@@ -7,21 +7,29 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <h1>IP VNG</h1>
-        <nav>
-            <a href="#">Home</a>
-            <a href="#">Contato</a>
-        </nav>
-    </header>
     <div class="container">
-        <div class="box">
+        <div class="header">Consulta de IP</div>
+
+        <div class="consulta-box">
+            <h2>Meu IP</h2>
+            <p id="meu-ip">Carregando...</p>
+        </div>
+
+        <div class="consulta-box">
             <h2>Consulta de IP</h2>
-            <input type="text" id="ipInput" placeholder="Digite um IP ou deixe em branco">
-            <button onclick="consultarIP()">Buscar</button>
-            <div id="resultado"></div>
+            <div class="input-group">
+                <input type="text" id="ip-input" placeholder="Digite um IP">
+                <button onclick="consultarIP()">Consultar</button>
+            </div>
+            <div class="resultado" id="resultado"></div>
+        </div>
+
+        <div class="consulta-box">
+            <h2>IP do Wi-Fi</h2>
+            <p id="wifi-ip">Carregando...</p>
         </div>
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
