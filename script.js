@@ -1,55 +1,41 @@
-document.getElementById('myIPBtn').addEventListener('click', function() {
-    // Obtém o IP público do usuário
+// Função para obter o IP público do usuário
+document.getElementById("myIPBtn").addEventListener("click", function() {
     fetch('https://api.ipify.org?format=json')
         .then(response => response.json())
         .then(data => {
-            const ip = data.ip;
-            document.getElementById('myIPResult').innerHTML = "Seu IP: " + ip;
-            fetchLocationInfo(ip);  // Chama a função para obter informações sobre o IP
+            document.getElementById("myIPResult").innerHTML = `Seu IP: ${data.ip}`;
         })
         .catch(error => {
-            console.error('Erro ao obter o IP:', error);
-            document.getElementById('myIPResult').innerHTML = "Erro ao obter o IP.";
+            document.getElementById("myIPResult").innerHTML = "Não foi possível obter o IP.";
         });
 });
 
-document.getElementById('lookupBtn').addEventListener('click', function() {
-    // Obtém o IP inserido pelo usuário
-    const ip = document.getElementById('ipInput').value.trim();
+// Função para consultar um IP específico
+document.getElementById("lookupBtn").addEventListener("click", function() {
+    const ip = document.getElementById("ipInput").value.trim();
     
-    if (ip) {
-        fetchLocationInfo(ip);  // Chama a função para obter informações sobre o IP inserido
-    } else {
-        document.getElementById('lookupResult').innerHTML = "Por favor, insira um IP válido.";
+    if (!ip) {
+        document.getElementById("lookupResult").innerHTML = "Por favor, digite um IP para consultar.";
+        return;
     }
-});
 
-function fetchLocationInfo(ip) {
-    // API ip-api para obter informações sobre o IP (sem chave de API)
-    fetch(`http://ip-api.com/json/${ip}`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Falha na requisição');
-            }
-            return response.json();
-        })
+    fetch(`https://ipapi.co/${ip}/json/`)
+        .then(response => response.json())
         .then(data => {
             if (data.error) {
-                document.getElementById('lookupResult').innerHTML = "IP não encontrado ou inválido.";
+                document.getElementById("lookupResult").innerHTML = "IP não encontrado ou inválido.";
             } else {
-                const { city, regionName, country, lat, lon } = data;
-
-                // Exibe as informações do IP
-                const resultHTML = `
-                    <p><strong>Localização:</strong> ${city}, ${regionName}, ${country}</p>
-                    <p><strong>Latitude:</strong> ${lat}</p>
-                    <p><strong>Longitude:</strong> ${lon}</p>
+                const result = `
+                    <strong>IP:</strong> ${data.ip} <br>
+                    <strong>Localização:</strong> ${data.city}, ${data.region}, ${data.country_name} <br>
+                    <strong>Org:</strong> ${data.org} <br>
+                    <strong>Latitude:</strong> ${data.latitude} <br>
+                    <strong>Longitude:</strong> ${data.longitude}
                 `;
-                document.getElementById('lookupResult').innerHTML = resultHTML;
+                document.getElementById("lookupResult").innerHTML = result;
             }
         })
         .catch(error => {
-            console.error('Erro ao obter a localização do IP:', error);
-            document.getElementById('lookupResult').innerHTML = "Erro ao consultar as informações do IP.";
+            document.getElementById("lookupResult").innerHTML = "Não foi possível consultar o IP.";
         });
-}
+});
