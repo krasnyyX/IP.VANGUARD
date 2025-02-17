@@ -8,32 +8,66 @@
 body {
     background: url('https://i.ibb.co/DDMssJRH/f07e4dbbb0fd5c3a369c80367fd1a702.jpg') no-repeat center center fixed;
     background-size: cover;
-    color: #fff;
-}
-
-.container {
-    max-width: 600px;
-    margin: 100px auto;
-    padding: 20px;
-    background: rgba(0, 0, 0, 0.8);
-    border-radius: 10px;
+    color: white;
     text-align: center;
 }
 
+header {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 20px;
+    background: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+}
+
+.top-left select {
+    padding: 5px;
+    background: black;
+    color: white;
+    border: 1px solid white;
+}
+
+.top-right a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    background: red;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    padding-top: 80px;
+}
+
 h1 {
-    font-size: 24px;
+    font-size: 2em;
     margin-bottom: 20px;
-    color: red;
+}
+
+.ip-section {
+    background: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+    margin: 10px;
 }
 
 button {
+    padding: 10px 15px;
+    border: none;
     background: red;
     color: white;
-    border: none;
-    padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
-    margin-top: 10px;
     border-radius: 5px;
 }
 
@@ -42,23 +76,16 @@ button:hover {
 }
 
 input {
-    width: 100%;
     padding: 10px;
-    margin-top: 10px;
-    border: 1px solid #fff;
-    border-radius: 5px;
-    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid white;
+    background: black;
     color: white;
+    width: calc(100% - 22px);
+    margin-bottom: 10px;
+    text-align: center;
 }
 
-input::placeholder {
-    color: #bbb;
-}
-
-.result {
-    margin-top: 20px;
-    padding: 10px;
-    background: rgba(255, 0, 0, 0.2);
-    border-radius: 5px;
-    word-wrap: break-word;
+p {
+    margin-top: 10px;
+    font-size: 18px;
 }
