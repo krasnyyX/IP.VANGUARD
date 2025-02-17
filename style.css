@@ -1,65 +1,65 @@
-body {
+* {
     margin: 0;
     padding: 0;
-    font-family: "Poppins", sans-serif;
-    background: url("https://i.ibb.co/DgH6nJrb/background.jpg") no-repeat center center fixed;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: url('https://i.ibb.co/DgH6nJrb/background.jpg') no-repeat center center fixed;
     background-size: cover;
-    color: white;
-}
-
-body::before {
-    content: "";
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    z-index: -1;
-}
-
-header {
-    background: rgba(0, 0, 0, 0.8);
-    padding: 15px 20px;
-    text-align: center;
-    font-size: 22px;
-    font-weight: bold;
-    letter-spacing: 1px;
-}
-
-.container {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    padding: 20px;
 }
 
-.card {
+.navbar {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.container {
+    width: 90%;
+    max-width: 500px;
     background: rgba(0, 0, 0, 0.75);
     padding: 20px;
-    width: 90%;
-    max-width: 400px;
     border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    margin-top: 100px;
     text-align: center;
-    margin-bottom: 20px;
+    color: white;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
 }
 
 h2 {
-    font-size: 20px;
-    color: #c0c0c0;
+    font-size: 22px;
     margin-bottom: 15px;
     text-transform: uppercase;
+    font-weight: bold;
 }
 
 input {
-    width: 85%;
-    padding: 10px;
-    margin-bottom: 10px;
+    width: 100%;
+    padding: 12px;
     border: none;
+    outline: none;
     border-radius: 5px;
+    margin-bottom: 10px;
     font-size: 16px;
     background: rgba(255, 255, 255, 0.2);
     color: white;
@@ -67,36 +67,51 @@ input {
 }
 
 input::placeholder {
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.6);
 }
 
 button {
     width: 100%;
-    padding: 10px;
-    background: #007bff;
+    padding: 12px;
+    background: #ff4d4d;
     color: white;
-    font-size: 16px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background 0.3s;
+    font-size: 16px;
+    font-weight: bold;
+    transition: 0.3s;
 }
 
 button:hover {
-    background: #0056b3;
+    background: #e60000;
 }
 
-.resultado {
+.result-box {
     margin-top: 15px;
-    padding: 10px;
+    padding: 12px;
     background: rgba(255, 255, 255, 0.15);
     border-radius: 5px;
-    font-size: 14px;
+    font-size: 16px;
     word-wrap: break-word;
 }
 
-@media (max-width: 768px) {
-    .card {
+@media (max-width: 500px) {
+    .container {
         width: 95%;
+        padding: 15px;
+    }
+
+    .navbar {
+        padding: 12px 15px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    input, button {
+        font-size: 14px;
+        padding: 10px;
     }
 }
