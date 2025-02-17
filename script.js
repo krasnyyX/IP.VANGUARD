@@ -1,54 +1,83 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const inputIP = document.getElementById("inputIP");
-    const btnBuscar = document.getElementById("btnBuscar");
-    const resultado = document.getElementById("resultado");
-    const btnMeuIP = document.getElementById("btnMeuIP");
+async function getMyIP() {
+    try {
+        const response = await fetch("https://api64.ipify.org?format=json");
+        const data = await response.json();
+        document.getElementById("myIpResult").innerHTML = `Meu IP: ${data.ip} (IPv4/IPv6)`;
+    } catch (error) {
+        document.getElementById("myIpResult").innerHTML = "Erro ao buscar o IP.";
+    }
+}
 
-    // Função para buscar informações do IP digitado
-    async function buscarIP(ip) {
-        try {
-            const response = await fetch(`https://ip-api.com/json/${ip}`);
-            const data = await response.json();
-
-            if (data.status === "fail") {
-                resultado.innerHTML = "<p>IP inválido ou reservado.</p>";
-                return;
-            }
-
-            resultado.innerHTML = `
-                <p><strong>IP:</strong> ${data.query}</p>
-                <p><strong>País:</strong> ${data.country}</p>
-                <p><strong>Região:</strong> ${data.regionName}</p>
-                <p><strong>Cidade:</strong> ${data.city}</p>
-                <p><strong>Provedor:</strong> ${data.isp}</p>
-                <p><strong>Lat/Lon:</strong> ${data.lat}, ${data.lon}</p>
-            `;
-        } catch (error) {
-            resultado.innerHTML = "<p>Erro ao buscar o IP.</p>";
-        }
+async function lookupIP() {
+    const ip = document.getElementById("ipInput").value.trim();
+    if (!ip) {
+        document.getElementById("lookupResult").innerHTML = "Digite um IP válido.";
+        return;
     }
 
-    // Evento para buscar IP digitado
-    btnBuscar.addEventListener("click", function () {
-        const ip = inputIP.value.trim();
-        if (ip) {
-            buscarIP(ip);
-        } else {
-            resultado.innerHTML = "<p>Digite um IP para consulta.</p>";
-        }
-    });
+    try {
+        const response = await fetch(`https://ipapi.co/${ip}/json/`);
+        const data = await response.json();
 
-    // Função para obter o IP público do usuário
-    async function buscarMeuIP() {
-        try {
-            const response = await fetch("https://api64.ipify.org?format=json");
-            const data = await response.json();
-            buscarIP(data.ip);
-        } catch (error) {
-            resultado.innerHTML = "<p>Erro ao obter seu IP.</p>";
+        if (data.error) {
+            document.getElementById("lookupResult").innerHTML = "IP inválido ou reservado.";
+            return;
         }
+
+        document.getElementById("lookupResult").innerHTML = `
+            <strong>IP:</strong> ${data.ip}<br>
+            <strong>País:</strong> ${data.country_name}<br>
+            <strong>Cidade:</strong> ${data.city}<br>
+            <strong>Provedor:</strong> ${data.org || "Desconhecido"}<br>
+            <strong>Tipo:</strong> ${data.version}
+        `;
+    } catch (error) {
+        document.getElementById("lookupResult").innerHTML = "Erro ao consultar o IP.";
     }
+}
 
-    // Evento para buscar o próprio IP
-    btnMeuIP.addEventListener("click", buscarMeuIP);
-});
+async function getWifiIP() {
+    try {
+        const response = await fetch("https://api.ipify.org?format=json");
+        const data = await response.json();
+        document.getElementById("wifiIpResult").innerHTML = `IP do Wi-Fi: ${data.ip}`;
+    } catch (error) {
+        document.getElementById("wifiIpResult").innerHTML = "Erro ao buscar o IP do Wi-Fi.";
+    }
+}
+
+function setLanguage(lang) {
+    const translations = {
+        pt: {
+            title: "Consulta de IP",
+            myIp: "Ver Meu IP",
+            inputPlaceholder: "Digite um IP para consultar",
+            lookup: "Consultar IP",
+            wifi: "Consultar IP do Wi-Fi",
+            contact: "Contato"
+        },
+        en: {
+            title: "IP Lookup",
+            myIp: "Check My IP",
+            inputPlaceholder: "Enter an IP to lookup",
+            lookup: "Lookup IP",
+            wifi: "Check Wi-Fi IP",
+            contact: "Contact"
+        },
+        ru: {
+            title: "Поиск IP",
+            myIp: "Мой IP",
+            inputPlaceholder: "Введите IP для поиска",
+            lookup: "Поиск IP",
+            wifi: "Проверить IP Wi-Fi",
+            contact: "Контакт"
+        }
+    };
+
+    document.querySelector("h1").innerText = translations[lang].title;
+    document.querySelector("button[onclick='getMyIP()']").innerText = translations[lang].myIp;
+    document.getElementById("ipInput").placeholder = translations[lang].inputPlaceholder;
+    document.querySelector("button[onclick='lookupIP()']").innerText = translations[lang].lookup;
+    document.querySelector("button[onclick='getWifiIP()']").innerText = translations[lang].wifi;
+    document.querySelector("p").innerHTML = `${translations[lang].contact}: <a href="https://t.me/azrakothx" target="_blank">@azrakothx</a>`;
+}
