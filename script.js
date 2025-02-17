@@ -1,12 +1,12 @@
 async function buscarMeuIP() {
     try {
-        // API para pegar o IP da internet (Forçando IPv4)
+        // IP da Internet (Forçando IPv4)
         const responseInternet = await fetch("https://api4.ipify.org?format=json");
         const dataInternet = await responseInternet.json();
         const meuIPInternet = dataInternet.ip;
 
-        // API para pegar o IP do dispositivo (rede local)
-        const responseDispositivo = await fetch("https://api.ipify.org?format=json");
+        // IP do Dispositivo (Rede Local)
+        const responseDispositivo = await fetch("https://api64.ipify.org?format=json");
         const dataDispositivo = await responseDispositivo.json();
         const meuIPDispositivo = dataDispositivo.ip;
 
@@ -40,6 +40,38 @@ async function buscarIP() {
         exibirResultado(data);
     } catch (error) {
         document.getElementById('resultado').innerHTML = `<p style="color: red;">${error.message}</p>`;
+    }
+}
+
+async function buscarIPInternet() {
+    try {
+        const response = await fetch("https://api4.ipify.org?format=json");
+        const data = await response.json();
+
+        document.getElementById('resultado-internet').innerHTML = `
+            <div class="resultado-box">
+                <h3>🌎 IP da Internet</h3>
+                <p><strong>📡 IP Público:</strong> ${data.ip}</p>
+            </div>
+        `;
+    } catch (error) {
+        document.getElementById('resultado-internet').innerHTML = `<p style="color: red;">Erro ao buscar IP.</p>`;
+    }
+}
+
+async function buscarIPDispositivo() {
+    try {
+        const response = await fetch("https://api64.ipify.org?format=json");
+        const data = await response.json();
+
+        document.getElementById('resultado-dispositivo').innerHTML = `
+            <div class="resultado-box">
+                <h3>📶 IP do Dispositivo</h3>
+                <p><strong>🖥️ IP Local:</strong> ${data.ip}</p>
+            </div>
+        `;
+    } catch (error) {
+        document.getElementById('resultado-dispositivo').innerHTML = `<p style="color: red;">Erro ao buscar IP.</p>`;
     }
 }
 
