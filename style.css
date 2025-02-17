@@ -16,7 +16,6 @@ body {
     color: white;
 }
 
-/* Cabeçalho */
 header {
     position: fixed;
     top: 0;
@@ -27,10 +26,11 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    backdrop-filter: blur(8px);
 }
 
 .logo {
-    font-size: 1.8em;
+    font-size: 1.5em;
     font-weight: bold;
     color: #00ffcc;
 }
@@ -47,42 +47,37 @@ header {
     color: #00ffcc;
 }
 
-/* Container principal */
 .container {
     margin-top: 120px;
     text-align: center;
-    background: rgba(255, 255, 255, 0.15);
-    padding: 25px;
-    border-radius: 12px;
-    backdrop-filter: blur(12px);
+    background: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
     width: 420px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 0px 10px rgba(0, 255, 204, 0.5);
 }
 
-h2 {
-    font-size: 1.8em;
-    margin-bottom: 20px;
-}
-
-/* Botões e inputs */
 .input-box {
     margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
 }
 
 input {
     padding: 10px;
-    width: 70%;
-    border: 1px solid #00ffcc;
+    width: 65%;
+    border: none;
     border-radius: 5px;
     outline: none;
-    background: rgba(255, 255, 255, 0.9);
+    background: white;
     color: black;
-    font-weight: bold;
+    font-size: 16px;
 }
 
 button {
-    padding: 10px 15px;
-    margin-top: 10px;
+    padding: 10px 18px;
     background: #00ffcc;
     border: none;
     border-radius: 5px;
@@ -92,41 +87,65 @@ button {
 }
 
 button:hover {
-    background: #008f99;
+    background: #008f7a;
     color: white;
 }
 
-/* Estilização das caixas de resultado */
 .resultado-box {
     background: rgba(0, 0, 0, 0.8);
     padding: 15px;
     border-radius: 10px;
     text-align: left;
-    width: 90%;
+    width: 100%;
     max-width: 420px;
-    margin-top: 10px;
-    box-shadow: 0 0 8px rgba(0, 255, 204, 0.7);
+    margin-top: 15px;
+    box-shadow: 0px 0px 8px rgba(0, 255, 204, 0.3);
 }
 
 .resultado-box h3 {
     color: #00ffcc;
     text-align: center;
     margin-bottom: 10px;
-    font-size: 1.3em;
 }
 
 .resultado-box p {
     margin: 5px 0;
     color: #ffffff;
-    font-size: 1em;
 }
 
 .resultado-box a {
     color: #00ffcc;
     text-decoration: none;
-    font-weight: bold;
 }
 
-.resultado-box a:hover {
-    text-decoration: underline;
+.pequeno {
+    width: 280px;
+    text-align: center;
+}
+
+.ip-pequeno {
+    font-size: 14px;
+    word-wrap: break-word;
+}
+
+.botao-ip {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.botao-ip button {
+    background: transparent;
+    border: 2px solid #00ffcc;
+    color: #00ffcc;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.botao-ip button:hover {
+    background: #00ffcc;
+    color: black;
 }
