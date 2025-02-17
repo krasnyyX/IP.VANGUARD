@@ -1,44 +1,30 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
-
-/* Configurações gerais */
-* {
+body {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
+    background: url("https://i.ibb.co/DgH6nJrb/background.jpg") no-repeat center center fixed;
+    background-size: cover;
+    color: white;
 }
 
-body {
-    background: url('https://i.ibb.co/DgH6nJrb/background.jpg') no-repeat center center fixed;
-    background-size: cover;
-    backdrop-filter: blur(5px);
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: -1;
 }
 
 header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 30px;
     background: rgba(0, 0, 0, 0.8);
-    color: #fff;
-}
-
-header h1 {
-    font-size: 24px;
-    font-weight: 600;
-}
-
-nav a {
-    text-decoration: none;
-    color: #fff;
-    font-size: 18px;
-    font-weight: 400;
-    margin-left: 20px;
-    transition: 0.3s;
-}
-
-nav a:hover {
-    color: #00d9ff;
+    padding: 15px 20px;
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    letter-spacing: 1px;
 }
 
 .container {
@@ -46,63 +32,71 @@ nav a:hover {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    min-height: 100vh;
+    padding: 20px;
 }
 
-.box {
-    background: rgba(255, 255, 255, 0.15);
-    border-radius: 15px;
+.card {
+    background: rgba(0, 0, 0, 0.75);
     padding: 20px;
     width: 90%;
     max-width: 400px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
     text-align: center;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     margin-bottom: 20px;
 }
 
-.box h2 {
-    font-size: 22px;
-    color: #fff;
-    margin-bottom: 10px;
+h2 {
+    font-size: 20px;
+    color: #c0c0c0;
+    margin-bottom: 15px;
+    text-transform: uppercase;
 }
 
 input {
-    width: 100%;
-    padding: 12px;
-    border-radius: 8px;
-    border: none;
-    outline: none;
-    font-size: 16px;
-    text-align: center;
+    width: 85%;
+    padding: 10px;
     margin-bottom: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    text-align: center;
+}
+
+input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
 }
 
 button {
     width: 100%;
-    padding: 12px;
-    border: none;
-    border-radius: 8px;
+    padding: 10px;
+    background: #007bff;
+    color: white;
     font-size: 16px;
-    font-weight: bold;
-    color: #fff;
-    background: #00d9ff;
+    border: none;
+    border-radius: 5px;
     cursor: pointer;
-    transition: 0.3s;
+    transition: background 0.3s;
 }
 
 button:hover {
-    background: #008fb3;
+    background: #0056b3;
 }
 
-/* Resultado da consulta */
 .resultado {
     margin-top: 15px;
     padding: 10px;
-    font-size: 18px;
-    font-weight: bold;
-    color: #fff;
-    background: rgba(0, 0, 0, 0.6);
-    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 5px;
+    font-size: 14px;
+    word-wrap: break-word;
+}
+
+@media (max-width: 768px) {
+    .card {
+        width: 95%;
+    }
 }
