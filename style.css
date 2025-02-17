@@ -9,86 +9,56 @@ body {
     background: url('https://i.ibb.co/DDMssJRH/f07e4dbbb0fd5c3a369c80367fd1a702.jpg') no-repeat center center fixed;
     background-size: cover;
     color: #fff;
-    text-align: center;
 }
 
-header {
-    background: rgba(0, 0, 0, 0.7);
-    padding: 15px;
-    font-size: 20px;
-    position: relative;
-}
-
-.idiomas {
-    position: absolute;
-    right: 20px;
-    top: 15px;
-}
-
-.idiomas button {
-    background: red;
-    border: none;
-    padding: 5px 10px;
-    margin-left: 5px;
-    cursor: pointer;
-    color: white;
-    font-weight: bold;
-}
-
-.consulta {
-    margin: 50px auto;
+.container {
+    max-width: 600px;
+    margin: 100px auto;
     padding: 20px;
     background: rgba(0, 0, 0, 0.8);
-    width: 90%;
-    max-width: 400px;
     border-radius: 10px;
-}
-
-.consulta input, .consulta button {
-    width: 100%;
-    padding: 10px;
-    margin-top: 10px;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-}
-
-.consulta input {
-    background: rgba(255, 255, 255, 0.2);
-    color: white;
     text-align: center;
 }
 
-.consulta button {
-    background: red;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: red;
 }
 
-.consulta button:hover {
+button {
+    background: red;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+button:hover {
     background: darkred;
 }
 
-#resultado {
+input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+input::placeholder {
+    color: #bbb;
+}
+
+.result {
     margin-top: 20px;
     padding: 10px;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 0, 0, 0.2);
     border-radius: 5px;
-}
-
-footer {
-    margin-top: 30px;
-    background: rgba(0, 0, 0, 0.7);
-    padding: 10px;
-}
-
-footer a {
-    color: red;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-footer a:hover {
-    text-decoration: underline;
+    word-wrap: break-word;
 }
