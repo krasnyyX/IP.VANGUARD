@@ -5,7 +5,7 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
     background: url('https://i.ibb.co/DDMssJRH/f07e4dbbb0fd5c3a369c80367fd1a702.jpg') no-repeat center center fixed;
     background-size: cover;
     color: white;
@@ -19,36 +19,47 @@ body {
 
 .container {
     width: 90%;
-    max-width: 600px;
-    padding: 30px;
+    max-width: 700px;
+    padding: 40px;
     background: rgba(0, 0, 0, 0.8);
     border-radius: 10px;
-    box-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.8);
     display: flex;
     flex-direction: column;
     align-items: center;
+    transition: transform 0.3s ease;
+}
+
+.container:hover {
+    transform: scale(1.02);
 }
 
 h1 {
     color: #ff0000;
-    font-size: 28px;
+    font-size: 32px;
     margin-bottom: 20px;
+    text-shadow: 2px 2px 5px rgba(255, 0, 0, 0.6);
 }
 
 input, button {
     width: 100%;
-    padding: 12px;
-    margin-top: 10px;
+    padding: 14px;
+    margin-top: 12px;
     border-radius: 5px;
-    font-size: 16px;
+    font-size: 18px;
     border: none;
     outline: none;
 }
 
 input {
-    background: #222;
+    background: #333;
     color: white;
-    border: 1px solid #ff0000;
+    border: 2px solid #ff0000;
+    transition: background 0.3s;
+}
+
+input:focus {
+    background: #444;
 }
 
 button {
@@ -56,6 +67,7 @@ button {
     color: white;
     cursor: pointer;
     transition: background-color 0.3s;
+    font-weight: bold;
 }
 
 button:hover {
@@ -64,11 +76,18 @@ button:hover {
 
 #myIPResult, #lookupResult {
     margin-top: 20px;
-    padding: 15px;
+    padding: 20px;
     background: rgba(255, 0, 0, 0.2);
-    border-radius: 5px;
+    border-radius: 10px;
     width: 100%;
     text-align: left;
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+    margin-bottom: 20px;
+}
+
+iframe {
+    border-radius: 10px;
+    border: none;
 }
 
 .header {
@@ -82,44 +101,39 @@ button:hover {
     justify-content: space-between;
     align-items: center;
     z-index: 100;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 .header a {
     color: #ff0000;
     text-decoration: none;
-    font-size: 18px;
+    font-size: 20px;
+    font-weight: bold;
+    transition: color 0.3s;
 }
 
 .header a:hover {
+    color: #cc0000;
     text-decoration: underline;
-}
-
-/* Botões */
-button {
-    background-color: #ff0000;
-    color: white;
-    padding: 12px 20px;
-    border-radius: 5px;
-    font-size: 16px;
-    transition: background-color 0.3s;
-}
-
-button:hover {
-    background-color: #cc0000;
 }
 
 @media (max-width: 768px) {
     .container {
         width: 95%;
-        padding: 20px;
+        padding: 25px;
     }
 
     h1 {
-        font-size: 24px;
+        font-size: 28px;
     }
 
     input, button {
-        font-size: 14px;
-        padding: 10px;
+        font-size: 16px;
+        padding: 12px;
+    }
+
+    iframe {
+        width: 100%;
+        height: 300px;
     }
 }
