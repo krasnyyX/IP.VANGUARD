@@ -1,80 +1,41 @@
-// Quando o botão "Meu IP" for clicado
+// Função para obter o IP público do usuário
 document.getElementById('myIPBtn').addEventListener('click', function() {
-    fetch('https://get.geojs.io/v1/ip/geo.json')
+    fetch('https://api.ipify.org?format=json')
         .then(response => response.json())
         .then(data => {
-            const ip = data.ip;
-            const city = data.city || 'Desconhecida';
-            const region = data.region || 'Desconhecida';
-            const country = data.country || 'Desconhecido';
-            const lat = data.latitude;
-            const lon = data.longitude;
-
-            // Exibe as informações do IP
-            document.getElementById("myIPResult").innerHTML = `
-                <strong>Seu IP:</strong> ${ip} <br>
-                <strong>Localização:</strong> ${city}, ${region}, ${country} <br>
-                <strong>Latitude:</strong> ${lat} <br>
-                <strong>Longitude:</strong> ${lon}
-            `;
-
-            // Exibe o mapa do Google sem chave de API
-            const mapFrame = `
-                <iframe
-                    width="100%"
-                    height="350"
-                    frameborder="0"
-                    style="border:0"
-                    src="https://www.google.com/maps/embed/v1/view?center=${lat},${lon}&zoom=12" allowfullscreen>
-                </iframe>
-            `;
-            document.getElementById("myIPResult").innerHTML += mapFrame;
+            document.getElementById('myIPResult').innerHTML = `<strong>Seu IP:</strong> ${data.ip}`;
         })
         .catch(error => {
-            document.getElementById("myIPResult").innerHTML = "Não foi possível consultar o IP.";
+            document.getElementById('myIPResult').innerHTML = 'Não foi possível obter o IP.';
         });
 });
 
-// Quando o botão "Consultar IP" for clicado
+// Função para consultar um IP
 document.getElementById('lookupBtn').addEventListener('click', function() {
-    const ip = document.getElementById('ipInput').value;
-    
+    const ip = document.getElementById('ipInput').value.trim();
+
     if (!ip) {
-        alert("Por favor, insira um IP para consulta.");
+        document.getElementById('lookupResult').innerHTML = '<strong>Erro:</strong> Por favor, insira um IP.';
         return;
     }
 
-    fetch(`https://get.geojs.io/v1/ip/geo/${ip}.json`)
+    fetch(`https://ipinfo.io/${ip}/json`)
         .then(response => response.json())
         .then(data => {
-            const ipAddress = data.ip;
-            const city = data.city || 'Desconhecida';
-            const region = data.region || 'Desconhecida';
-            const country = data.country || 'Desconhecido';
-            const lat = data.latitude;
-            const lon = data.longitude;
+            let result = `<strong>IP:</strong> ${data.ip}<br>
+                          <strong>Localização:</strong> ${data.city}, ${data.region}, ${data.country}<br>
+                          <strong>Hostname:</strong> ${data.hostname}<br>
+                          <strong>Organização:</strong> ${data.org}<br>`;
 
-            // Exibe as informações do IP consultado
-            document.getElementById("lookupResult").innerHTML = `
-                <strong>IP Consultado:</strong> ${ipAddress} <br>
-                <strong>Localização:</strong> ${city}, ${region}, ${country} <br>
-                <strong>Latitude:</strong> ${lat} <br>
-                <strong>Longitude:</strong> ${lon}
-            `;
+            if (data.loc) {
+                const [lat, lon] = data.loc.split(',');
+                result += `<strong>Latitude:</strong> ${lat}<br>
+                           <strong>Longitude:</strong> ${lon}<br>`;
+            }
 
-            // Exibe o mapa do Google para o IP consultado
-            const mapFrame = `
-                <iframe
-                    width="100%"
-                    height="350"
-                    frameborder="0"
-                    style="border:0"
-                    src="https://www.google.com/maps/embed/v1/view?center=${lat},${lon}&zoom=12" allowfullscreen>
-                </iframe>
-            `;
-            document.getElementById("lookupResult").innerHTML += mapFrame;
+            document.getElementById('lookupResult').innerHTML = result;
         })
         .catch(error => {
-            document.getElementById("lookupResult").innerHTML = "Não foi possível consultar o IP fornecido.";
+            document.getElementById('lookupResult').innerHTML = '<strong>Erro:</strong> Não foi possível obter as informações do IP.';
         });
 });
