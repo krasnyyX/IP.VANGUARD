@@ -24,16 +24,32 @@ document.getElementById("lookupBtn").addEventListener("click", function() {
         .then(data => {
             if (data.error) {
                 document.getElementById("lookupResult").innerHTML = "IP não encontrado ou inválido.";
-            } else {
-                const result = `
-                    <strong>IP:</strong> ${data.ip} <br>
-                    <strong>Localização:</strong> ${data.city}, ${data.region}, ${data.country_name} <br>
-                    <strong>Org:</strong> ${data.org} <br>
-                    <strong>Latitude:</strong> ${data.latitude} <br>
-                    <strong>Longitude:</strong> ${data.longitude}
-                `;
-                document.getElementById("lookupResult").innerHTML = result;
+                return;
             }
+
+            // Exibindo as informações do IP
+            const result = `
+                <strong>IP:</strong> ${data.ip} <br>
+                <strong>Localização:</strong> ${data.city || 'Desconhecido'}, ${data.region || 'Desconhecido'}, ${data.country_name || 'Desconhecido'} <br>
+                <strong>Organização:</strong> ${data.org || 'Desconhecido'} <br>
+                <strong>ISP:</strong> ${data.isp || 'Desconhecido'} <br>
+                <strong>CEP:</strong> ${data.zip || 'Desconhecido'} <br>
+                <strong>Latitude:</strong> ${data.latitude} <br>
+                <strong>Longitude:</strong> ${data.longitude}
+            `;
+            document.getElementById("lookupResult").innerHTML = result;
+
+            // Adicionando o Google Maps
+            const mapFrame = `
+                <iframe
+                    width="100%"
+                    height="350"
+                    frameborder="0"
+                    style="border:0"
+                    src="https://www.google.com/maps/embed/v1/view?key=YOUR_GOOGLE_MAPS_API_KEY&center=${data.latitude},${data.longitude}&zoom=12" allowfullscreen>
+                </iframe>
+            `;
+            document.getElementById("lookupResult").innerHTML += mapFrame;
         })
         .catch(error => {
             document.getElementById("lookupResult").innerHTML = "Não foi possível consultar o IP.";
